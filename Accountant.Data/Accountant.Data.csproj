@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Accountant.Data.Entities\Accountant.Data.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
