@@ -20,6 +20,8 @@ namespace Accountant.Data.SqlServer.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+
+            modelBuilder.ApplyConfiguration(new EntryConfiguration());
         }
     }
 }
