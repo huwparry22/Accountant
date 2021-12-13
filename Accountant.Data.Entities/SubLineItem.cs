@@ -2,13 +2,13 @@
 
 namespace Accountant.Data.Entities
 {
-    public class EntryItem
+    public class SubLineItem
     {
-        public int EntryItemId { get; set; }
+        public int SubLineItemId { get; set; }
 
-        public int EntryId { get; set; }
+        public int LineItemId { get; set; }
 
-        public EntryItemType EntryItemTypeId { get; set; }
+        public SubLineItemType SubLineItemTypeId { get; set; }
 
         public string Description { get; set; }
 

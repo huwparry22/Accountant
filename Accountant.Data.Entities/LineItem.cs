@@ -1,8 +1,8 @@
 ﻿namespace Accountant.Data.Entities
 {
-    public class Entry
+    public class LineItem
     {
-        public int EntryId { get; set; }
+        public int LineItemId { get; set; }
 
         public int UserId { get; set; }
 

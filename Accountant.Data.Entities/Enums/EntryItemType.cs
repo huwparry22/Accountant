@@ -1,6 +1,6 @@
 ﻿namespace Accountant.Data.Entities.Enums
 {
-    public enum EntryItemType
+    public enum SubLineItemType
     {
         Income = 1,
         Expenditure = 2

@@ -15,17 +15,17 @@ namespace Accountant.Data.SqlServer.Context
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<Entry> Entrys { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
 
-        public DbSet<EntryItem> EntryItems { get; set; }
+        public DbSet<SubLineItem> SubLineItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
-            modelBuilder.ApplyConfiguration(new EntryConfiguration());
+            modelBuilder.ApplyConfiguration(new LineItemConfiguration());
 
-            modelBuilder.ApplyConfiguration(new EntryItemConfiguration());
+            modelBuilder.ApplyConfiguration(new SubLineItemConfiguration());
         }
     }
 }
