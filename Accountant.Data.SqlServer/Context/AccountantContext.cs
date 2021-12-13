@@ -1,4 +1,5 @@
 ﻿using Accountant.Data.Entities;
+using Accountant.Data.SqlServer.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Accountant.Data.SqlServer.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }
