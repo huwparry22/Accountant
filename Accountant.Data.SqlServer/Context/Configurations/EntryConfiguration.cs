@@ -12,6 +12,8 @@ namespace Accountant.Data.SqlServer.Context.Configurations
 
             builder.HasKey(e => e.EntryId);
             builder.Property(e => e.EntryId).UseIdentityColumn();
+
+            builder.HasOne<User>().WithMany().HasForeignKey(e => e.UserId);
         }
     }
 }
