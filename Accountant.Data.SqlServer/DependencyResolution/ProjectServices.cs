@@ -14,6 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<IUserProvider, UserProvider>();
             services.AddTransient<ILineItemProvider, LineItemProvider>();
+            services.AddTransient<ISubLineItemProvider, SubLineItemProvider>();
         }
     }
 }

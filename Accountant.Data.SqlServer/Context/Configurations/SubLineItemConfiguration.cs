@@ -10,12 +10,12 @@ namespace Accountant.Data.SqlServer.Context.Configurations
         {
             builder.ToTable("SubLineItem");
 
-            builder.HasKey(ei => ei.SubLineItemId);
-            builder.Property(ei => ei.SubLineItemId).UseIdentityColumn();
+            builder.HasKey(sli => sli.SubLineItemId);
+            builder.Property(sli => sli.SubLineItemId).UseIdentityColumn();
 
             builder.HasOne<LineItem>().WithMany().HasForeignKey(ei => ei.LineItemId);
 
-            builder.Property(ei => ei.SubLineItemTypeId).HasConversion<int>();
+            builder.Property(sli => sli.SubLineItemTypeId).HasConversion<int>();
         }
     }
 }
