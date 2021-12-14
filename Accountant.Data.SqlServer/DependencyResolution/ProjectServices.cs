@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient(typeof(IEntityProvider<>), typeof(EntityProvider<>));
 
             services.AddTransient<IUserProvider, UserProvider>();
+            services.AddTransient<ILineItemProvider, LineItemProvider>();
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Accountant.Data.EntityProviders
 {
     public interface ILineItemProvider : IEntityProvider<LineItem>
     {
-        Task<LineItem> GetByLineItemIdAsync(int entryId);
+        Task<LineItem> GetByLineItemIdAsync(int lineItemId);
     }
 }
