@@ -2,7 +2,7 @@
 
 namespace Accountant.Data.SqlServer
 {
-    internal class EntityProvider<T> : IEntityProvider<T> where T : class
+    public class EntityProvider<T> : IEntityProvider<T> where T : class
     {
         internal readonly AccountantContext _accountantContext;
 
