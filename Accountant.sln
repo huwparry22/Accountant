@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data.Entities", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{25FC6805-3189-45FE-864D-E860A7FA98C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Data", "Accountant.Data\Accountant.Data.csproj", "{149B01EC-0DF3-45FB-9B82-070D7853AA42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data", "Accountant.Data\Accountant.Data.csproj", "{149B01EC-0DF3-45FB-9B82-070D7853AA42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Data.SqlServer", "Accountant.Data.SqlServer\Accountant.Data.SqlServer.csproj", "{7AA44AB3-6D37-4308-9B00-54E3C9098C2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data.SqlServer", "Accountant.Data.SqlServer\Accountant.Data.SqlServer.csproj", "{7AA44AB3-6D37-4308-9B00-54E3C9098C2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.SolutionBuilder", "Accountant.SolutionBuilder\Accountant.SolutionBuilder.csproj", "{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{7AA44AB3-6D37-4308-9B00-54E3C9098C2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AA44AB3-6D37-4308-9B00-54E3C9098C2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AA44AB3-6D37-4308-9B00-54E3C9098C2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
