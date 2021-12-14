@@ -1,15 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Accountant.Data;
+using Accountant.Data.SqlServer;
+using Microsoft.Extensions.Hosting;
 
-namespace Accountant.Data.SqlServer.DependencyResolution
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ProjectServices
     {
-        public static void AddSqlServerServices(this IServiceCollection services)
+        public static void AddSqlServerServices(this IServiceCollection services, IHostEnvironment hostEnvironment)
         {
             services.AddTransient(typeof(IEntityProvider<>), typeof(EntityProvider<>));
         }
