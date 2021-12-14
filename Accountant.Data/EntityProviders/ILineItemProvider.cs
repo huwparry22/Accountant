@@ -1,6 +1,6 @@
 ﻿using Accountant.Data.Entities;
 
-namespace Accountant.Data.EntityProvider
+namespace Accountant.Data.EntityProviders
 {
     public interface ILineItemProvider : IEntityProvider<LineItem>
     {
