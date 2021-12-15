@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
-namespace Accountant.SolutionBuilder
+namespace Microsoft.Extensions.Configuration
 {
     public static class ConfigurationBuilderHelper
     {

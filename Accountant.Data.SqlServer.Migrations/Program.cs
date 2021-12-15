@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Accountant.Data.SqlServer.Migrations
 {
@@ -19,10 +20,10 @@ namespace Accountant.Data.SqlServer.Migrations
 
         static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                //.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
-                //{
-                //    configurationBuilder.AddSolutionConfiguration();
-                //})
+                .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+                {
+                    configurationBuilder.AddSolutionConfiguration(hostBuilderContext.HostingEnvironment);
+                })
                 .ConfigureServices((hostBuilderContext, services) =>
                 {
                     services.AddSolutionServices(hostBuilderContext.HostingEnvironment);
