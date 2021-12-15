@@ -4,6 +4,7 @@ using Accountant.Data.SqlServer;
 using Accountant.Data.SqlServer.Context;
 using Accountant.Data.SqlServer.EntityProviders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -12,9 +13,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddSqlServerServices(this IServiceCollection services, IHostEnvironment hostEnvironment)
         {
-            var constStr = @"Data Source=(localdb)\ProjectModels;Initial Catalog=Accountant;Integrated Security=True";
-            services.AddDbContext<AccountantContext>(options => options.UseSqlServer(constStr));
-
+            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+            services.AddDbContext<AccountantContext>(options => options.UseSqlServer(configuration.GetConnectionString("Accountant")));
 
             services.AddTransient(typeof(IEntityProvider<>), typeof(EntityProvider<>));
 
