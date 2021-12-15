@@ -16,6 +16,7 @@ namespace Accountant.Data.SqlServer.Context.Configurations
             builder.HasOne<LineItem>().WithMany().HasForeignKey(ei => ei.LineItemId);
 
             builder.Property(sli => sli.SubLineItemTypeId).HasConversion<int>();
+            builder.Property(sli => sli.Amount).HasColumnType("money").HasPrecision(18, 2);
         }
     }
 }
