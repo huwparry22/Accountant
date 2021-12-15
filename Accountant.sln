@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data.SqlServer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.SolutionBuilder", "Accountant.SolutionBuilder\Accountant.SolutionBuilder.csproj", "{87EAB8F2-4A2F-4648-8FCE-E896AC22AC80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Data.SqlServer.Migrations", "Accountant.Data.SqlServer.Migrations\Accountant.Data.SqlServer.Migrations.csproj", "{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data.SqlServer.Migrations", "Accountant.Data.SqlServer.Migrations\Accountant.Data.SqlServer.Migrations.csproj", "{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,7 +40,6 @@ Global
 		{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
