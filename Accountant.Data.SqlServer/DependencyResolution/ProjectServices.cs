@@ -14,7 +14,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddSqlServerServices(this IServiceCollection services, IHostEnvironment hostEnvironment)
         {
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
-            services.AddDbContext<AccountantContext>(options => options.UseSqlServer(configuration.GetConnectionString("Accountant")));
+            services.AddDbContext<AccountantContext>(dbContextOptionsBuilder => 
+                dbContextOptionsBuilder.UseSqlServer(configuration.GetConnectionString("Accountant"),
+                sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.MigrationsAssembly("Accountant.Data.SqlServer.Migrations"))
+            );
 
             services.AddTransient(typeof(IEntityProvider<>), typeof(EntityProvider<>));
 
