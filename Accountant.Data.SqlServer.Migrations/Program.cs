@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Accountant.Data.SqlServer.Migrations
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
