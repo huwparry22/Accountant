@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.API.Models", "Ac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.API.WebAPI", "Accountant.API.WebAPI\Accountant.API.WebAPI.csproj", "{001CB6B5-C934-48EC-8C5C-AA41B37D7B47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.API", "Accountant.API\Accountant.API.csproj", "{473EB856-7846-4265-B55D-49D328639D75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{001CB6B5-C934-48EC-8C5C-AA41B37D7B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{001CB6B5-C934-48EC-8C5C-AA41B37D7B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{001CB6B5-C934-48EC-8C5C-AA41B37D7B47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{473EB856-7846-4265-B55D-49D328639D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473EB856-7846-4265-B55D-49D328639D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473EB856-7846-4265-B55D-49D328639D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473EB856-7846-4265-B55D-49D328639D75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{3CA87499-1A6B-4641-82DB-B760F6A43327} = {171356F2-E954-4418-9E94-FB3843758023}
 		{CF40D4D4-13FF-4B0B-8834-78EC8A5E07CF} = {C0C8590E-C773-463E-974B-77773F28ADF5}
 		{001CB6B5-C934-48EC-8C5C-AA41B37D7B47} = {C0C8590E-C773-463E-974B-77773F28ADF5}
+		{473EB856-7846-4265-B55D-49D328639D75} = {C0C8590E-C773-463E-974B-77773F28ADF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E2581A6-7D64-49F7-97E1-6143710D479D}
