@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Core", "Accounta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Core.UnitTests", "Accountant.Core.UnitTests\Accountant.Core.UnitTests.csproj", "{6D3FB225-5250-4AD9-A461-E3F1704E0FB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.Core.Objects", "Accountant.Core.Objects\Accountant.Core.Objects.csproj", "{3CA87499-1A6B-4641-82DB-B760F6A43327}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{6D3FB225-5250-4AD9-A461-E3F1704E0FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3FB225-5250-4AD9-A461-E3F1704E0FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3FB225-5250-4AD9-A461-E3F1704E0FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA87499-1A6B-4641-82DB-B760F6A43327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA87499-1A6B-4641-82DB-B760F6A43327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA87499-1A6B-4641-82DB-B760F6A43327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA87499-1A6B-4641-82DB-B760F6A43327}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{121CDD34-BF4C-4E21-83E8-BFAC20142BD7} = {25FC6805-3189-45FE-864D-E860A7FA98C4}
 		{47284429-BA7A-4DAA-8D10-EB4B7282C756} = {171356F2-E954-4418-9E94-FB3843758023}
 		{6D3FB225-5250-4AD9-A461-E3F1704E0FB2} = {171356F2-E954-4418-9E94-FB3843758023}
+		{3CA87499-1A6B-4641-82DB-B760F6A43327} = {171356F2-E954-4418-9E94-FB3843758023}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E2581A6-7D64-49F7-97E1-6143710D479D}
