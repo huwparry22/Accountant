@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.SolutionBuilder"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.Data.SqlServer.Migrations", "Accountant.Data.SqlServer.Migrations\Accountant.Data.SqlServer.Migrations.csproj", "{121CDD34-BF4C-4E21-83E8-BFAC20142BD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{171356F2-E954-4418-9E94-FB3843758023}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{C0C8590E-C773-463E-974B-77773F28ADF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
