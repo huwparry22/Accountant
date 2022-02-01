@@ -7,7 +7,7 @@ namespace Accountant.Core.UnitTests
         [Fact]
         public void Test1()
         {
-
+            Assert.True(true);
         }
     }
 }

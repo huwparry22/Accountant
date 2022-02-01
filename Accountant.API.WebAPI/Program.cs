@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
                         Id = "ApiKeyAuth"
                     }
                 },
-                new string[] {}
+                Array.Empty<string>()
         }
     });
 });
