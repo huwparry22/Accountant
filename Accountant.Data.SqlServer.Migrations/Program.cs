@@ -8,6 +8,9 @@ namespace Accountant.Data.SqlServer.Migrations
     {
         static void Main(string[] args)
         {
+            //efcore migrations different project
+            //https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/projects?tabs=vs
+
             using IHost host = CreateHostBuilder(args).Build();
 
             using IServiceScope serviceScope = host.Services.CreateScope();
