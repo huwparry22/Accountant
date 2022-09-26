@@ -1,4 +1,5 @@
 ﻿using Accountant.API.Interfaces;
+using Accountant.API.Mappers;
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes.LineItem;
@@ -20,6 +21,8 @@ namespace Accountant.API.Bootstrapper
             services.AddTransient<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>, CreateLineItemProcess>();
 
             services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
+
+            services.AddTransient<IValidationResultMapper, ValidationResultMapper>();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Accountant.API.Processes.LineItem
 
         public async Task<CreateLineItemResponse> Validate(CreateLineItemRequest request)
         {
-            var validatorResponse = await _validator.ValidateAsync(request).ConfigureAwait(false);
+            var validationResult = await _validator.ValidateAsync(request).ConfigureAwait(false);
 
             throw new NotImplementedException();
         }
