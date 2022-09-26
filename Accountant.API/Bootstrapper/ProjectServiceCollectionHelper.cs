@@ -2,6 +2,8 @@
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes.LineItem;
+using Accountant.API.Validation.LineItem;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,8 @@ namespace Accountant.API.Bootstrapper
         public static void AddApiProjectServices(this IServiceCollection services)
         {
             services.AddTransient<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>, CreateLineItemProcess>();
+
+            services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
         }
     }
 }
