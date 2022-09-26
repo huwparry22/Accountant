@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Accountant.API.Models
+namespace Accountant.API.Models.Responses.LineItem
 {
-    public class BaseRequest
+    public class CreateLineItemResponse : BaseResponse
     {
     }
 }
