@@ -13,17 +13,19 @@ namespace Accountant.API.Processes.LineItem
     public class CreateLineItemProcess : IApiProcess<CreateLineItemRequest, CreateLineItemResponse>
     {
         private readonly IValidator<CreateLineItemRequest> _validator;
+        private readonly IValidationResultMapper _validationResultMapper;
 
-        public CreateLineItemProcess(IValidator<CreateLineItemRequest> validator)
+        public CreateLineItemProcess(IValidator<CreateLineItemRequest> validator, IValidationResultMapper validationResultMapper)
         {
             _validator = validator;
+            _validationResultMapper = validationResultMapper;
         }
 
         public async Task<CreateLineItemResponse> Validate(CreateLineItemRequest request)
         {
             var validationResult = await _validator.ValidateAsync(request).ConfigureAwait(false);
 
-            throw new NotImplementedException();
+            return _validationResultMapper.MapToApiResponse<CreateLineItemResponse>(validationResult);
         }
 
         public async Task<CreateLineItemResponse> Execute(CreateLineItemRequest request)
