@@ -14,13 +14,9 @@ namespace Accountant.API.Mappers
             return new Response
             {
                 Success = validationResult.IsValid,
-                Error = validationResult.IsValid
+                Errors = validationResult.IsValid
                     ? null
-                    : new Models.Common.Error
-                    {
-                        ErrorCode = 999,
-                        ErrorMessage = validationResult.Errors.First().ErrorMessage
-                    }
+                    : validationResult.Errors.Select(e => e.ErrorMessage)
             };
         }
     }
