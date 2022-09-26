@@ -6,8 +6,8 @@ namespace Accountant.API.Interfaces
         where Request : BaseRequest
         where Response : BaseResponse
     {
-        Response Validate(Request request);
+        Task<Response> Validate(Request request);
 
-        Response Execute(Request request);
+        Task<Response> Execute(Request request);
     }
 }

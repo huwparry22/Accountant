@@ -19,12 +19,14 @@ namespace Accountant.API.Processes.LineItem
             _validator = validator;
         }
 
-        public CreateLineItemResponse Validate(CreateLineItemRequest request)
+        public async Task<CreateLineItemResponse> Validate(CreateLineItemRequest request)
         {
+            var validatorResponse = await _validator.ValidateAsync(request).ConfigureAwait(false);
+
             throw new NotImplementedException();
         }
 
-        public CreateLineItemResponse Execute(CreateLineItemRequest request)
+        public async Task<CreateLineItemResponse> Execute(CreateLineItemRequest request)
         {
             throw new NotImplementedException();
         }
