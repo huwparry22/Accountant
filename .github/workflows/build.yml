@@ -6,14 +6,13 @@ on:
   pull_request:
     branches: [ main ]
 
-variables:
-- name: solution
-  value: API/Accountant.sln
-
 jobs:
   build:
 
     runs-on: windows-latest
+
+    env:
+      solution: API/Accountant.sln
 
     steps:
     - uses: actions/checkout@v2
@@ -23,7 +22,7 @@ jobs:
         dotnet-version: 6.0.x
     
     - name: Restore dependencies
-      run: dotnet restore ${{variables.solution}}
+      run: dotnet restore $solution
     
     - name: Build
       run: dotnet build --no-restore
