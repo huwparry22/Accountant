@@ -6,14 +6,14 @@ on:
   pull_request:
     branches: [ main ]
 
+variables:
+- name: solution
+  value: API/Accountant.sln
+
 jobs:
   build:
 
     runs-on: windows-latest
-
-    variables:
-    - name: solution
-      value: API/Accountant.sln
 
     steps:
     - uses: actions/checkout@v2
