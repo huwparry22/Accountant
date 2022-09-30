@@ -1,6 +1,6 @@
 ﻿using Accountant.Core.Interfaces;
 using Accountant.Core.Logic;
-using Microsoft.Extensions.DependencyInjection;
+using Accountant.Core.Mappers;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,6 +9,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddCoreProjectServices(this IServiceCollection services)
         {
             services.AddTransient<ILineItemLogic, LineItemLogic>();
+
+            services.AddTransient<ILineItemMapper, LineItemMapper>();
         }
     }
 }
