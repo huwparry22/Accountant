@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.API.Models", "Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.API", "Accountant.API\Accountant.API.csproj", "{473EB856-7846-4265-B55D-49D328639D75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.API.WebAPI", "Accountant.API.WebAPI\Accountant.API.WebAPI.csproj", "{A14F6DC1-F116-4B4D-815A-58C6BF59DE79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accountant.API.WebAPI", "Accountant.API.WebAPI\Accountant.API.WebAPI.csproj", "{A14F6DC1-F116-4B4D-815A-58C6BF59DE79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accountant.API.UnitTests", "Accountant.API.UnitTests\Accountant.API.UnitTests.csproj", "{4F3663BA-9750-4F34-9850-59B9A2E03ABE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +82,10 @@ Global
 		{A14F6DC1-F116-4B4D-815A-58C6BF59DE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A14F6DC1-F116-4B4D-815A-58C6BF59DE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A14F6DC1-F116-4B4D-815A-58C6BF59DE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3663BA-9750-4F34-9850-59B9A2E03ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3663BA-9750-4F34-9850-59B9A2E03ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3663BA-9750-4F34-9850-59B9A2E03ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3663BA-9750-4F34-9850-59B9A2E03ABE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{CF40D4D4-13FF-4B0B-8834-78EC8A5E07CF} = {C0C8590E-C773-463E-974B-77773F28ADF5}
 		{473EB856-7846-4265-B55D-49D328639D75} = {C0C8590E-C773-463E-974B-77773F28ADF5}
 		{A14F6DC1-F116-4B4D-815A-58C6BF59DE79} = {C0C8590E-C773-463E-974B-77773F28ADF5}
+		{4F3663BA-9750-4F34-9850-59B9A2E03ABE} = {C0C8590E-C773-463E-974B-77773F28ADF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E2581A6-7D64-49F7-97E1-6143710D479D}
