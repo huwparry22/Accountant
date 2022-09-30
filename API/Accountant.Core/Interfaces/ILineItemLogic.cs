@@ -9,6 +9,6 @@ namespace Accountant.Core.Interfaces
 {
     public interface ILineItemLogic
     {
-        int CreateLineItem(CreateLineItemRequest request);
+        Task<int> CreateLineItem(CreateLineItemRequest request);
     }
 }
