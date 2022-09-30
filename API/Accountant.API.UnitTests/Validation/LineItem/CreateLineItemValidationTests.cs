@@ -67,7 +67,7 @@ namespace Accountant.API.UnitTests.Validation.LineItem
             AssertInvalidDescriptionError(result);
         }
 
-        private void AssertInvalidDescriptionError(TestValidationResult<CreateLineItemRequest> result)
+        private static void AssertInvalidDescriptionError(TestValidationResult<CreateLineItemRequest> result)
         {
             result
                 .ShouldHaveValidationErrorFor(req => req.Description)
