@@ -21,17 +21,34 @@ namespace Accountant.API.UnitTests.Validation.LineItem
         [Fact]
         public void IsValid()
         {
-            //Arrange
             var request = new CreateLineItemRequest
             {
                 Description = "testing"
             };
 
-            //Act
             var result = _objectToTest.TestValidate(request);
 
-            //Assert
-            result.ShouldNotHaveAnyValidationErrors();
+            result.ShouldNotHaveValidationErrorFor(req => req.Description);
+        }
+
+        [Fact]
+        public void IsNotValid_EmptyString()
+        {
+            var request = new CreateLineItemRequest
+            {
+                Description = ""
+            };
+
+            var result = _objectToTest.TestValidate(request);
+
+            AssertInvalidDescriptionError(result);
+        }
+
+        private void AssertInvalidDescriptionError(TestValidationResult<CreateLineItemRequest> result)
+        {
+            result
+                .ShouldHaveValidationErrorFor(req => req.Description)
+                .WithErrorMessage("Invalid description");
         }
     }
 }
