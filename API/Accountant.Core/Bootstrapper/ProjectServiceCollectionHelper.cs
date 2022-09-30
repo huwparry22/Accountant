@@ -2,7 +2,7 @@
 using Accountant.Core.Logic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Accountant.Core.Bootstrapper
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ProjectServiceCollectionHelper
     {

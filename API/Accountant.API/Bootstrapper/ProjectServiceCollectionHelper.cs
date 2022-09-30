@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Accountant.API.Bootstrapper
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ProjectServiceCollectionHelper
     {
