@@ -44,6 +44,19 @@ namespace Accountant.API.UnitTests.Validation.LineItem
             AssertInvalidDescriptionError(result);
         }
 
+        [Fact]
+        public void IsNotValid_WhiteSpace()
+        {
+            var request = new CreateLineItemRequest
+            {
+                Description = " "
+            };
+
+            var result = _objectToTest.TestValidate(request);
+
+            AssertInvalidDescriptionError(result);
+        }
+
         private void AssertInvalidDescriptionError(TestValidationResult<CreateLineItemRequest> result)
         {
             result
