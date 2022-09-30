@@ -12,7 +12,7 @@ namespace Accountant.API.Validation.LineItem
                 .WithMessage("Invalid description");
         }
 
-        public bool ValidDescription(string description)
+        private static bool ValidDescription(string description)
         {
             return !string.IsNullOrWhiteSpace(description);
         }
