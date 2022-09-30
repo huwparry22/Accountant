@@ -19,7 +19,7 @@ namespace Accountant.API.UnitTests.Validation.LineItem
         }
 
         [Fact]
-        public void IsValid()
+        public void IsValid_Description()
         {
             var request = new CreateLineItemRequest
             {
@@ -32,7 +32,7 @@ namespace Accountant.API.UnitTests.Validation.LineItem
         }
 
         [Fact]
-        public void IsNotValid_EmptyString()
+        public void IsNotValid_Description_EmptyString()
         {
             var request = new CreateLineItemRequest
             {
@@ -45,12 +45,22 @@ namespace Accountant.API.UnitTests.Validation.LineItem
         }
 
         [Fact]
-        public void IsNotValid_WhiteSpace()
+        public void IsNotValid_Description_WhiteSpace()
         {
             var request = new CreateLineItemRequest
             {
                 Description = " "
             };
+
+            var result = _objectToTest.TestValidate(request);
+
+            AssertInvalidDescriptionError(result);
+        }
+
+        [Fact]
+        public void IsNotValid_Description_Null()
+        {
+            var request = new CreateLineItemRequest();
 
             var result = _objectToTest.TestValidate(request);
 
