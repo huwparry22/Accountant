@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Accountant.API.Models\Accountant.API.Models.csproj" />
+    <ProjectReference Include="..\Accountant.Data.Entities\Accountant.Data.Entities.csproj" />
   </ItemGroup>
 
 </Project>
