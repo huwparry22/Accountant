@@ -38,7 +38,11 @@ namespace Accountant.API.Processes.LineItem
         {
             var lineItemId = await _lineItemLogic.CreateLineItem(request).ConfigureAwait(false);
 
-            return null;
+            return new CreateLineItemResponse
+            {
+                Success = true,
+                LineItemId = lineItemId
+            };
         }
     }
 }
