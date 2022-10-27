@@ -1,8 +1,10 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.LineItem;
+using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes.LineItem;
 using Accountant.Core.Interfaces;
 using FluentValidation;
+using FluentValidation.Results;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,32 @@ namespace Accountant.API.UnitTests.Processes.LineItem
                 _mockValidator.Object,
                 _mockValidationResultMapper.Object,
                 _mockLineItemLogic.Object);
+        }
+
+        public class ValidateTests : CreateLineItemProcessTests
+        {
+            private readonly CreateLineItemRequest _request;
+
+            private readonly ValidationResult _validationResult;
+
+            private readonly CreateLineItemResponse _createLineItemResponse;
+
+            public ValidateTests() : base()
+            {
+                _request = new CreateLineItemRequest();
+
+                _validationResult = new ValidationResult();
+
+                _createLineItemResponse = new CreateLineItemResponse();
+
+                _mockValidator
+                    .Setup(x => x.ValidateAsync(It.IsAny<CreateLineItemRequest>(), It.IsAny<CancellationToken>()))
+                    .ReturnsAsync(_validationResult);
+
+                _mockValidationResultMapper
+                    .Setup(x => x.MapToApiResponse<CreateLineItemResponse>(It.IsAny<ValidationResult>()))
+                    .Returns(_createLineItemResponse);
+            }
         }
     }
 }
