@@ -1,6 +1,7 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
+using Accountant.Core.Interfaces;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,16 @@ namespace Accountant.API.Processes.LineItem
     {
         private readonly IValidator<CreateLineItemRequest> _validator;
         private readonly IValidationResultMapper _validationResultMapper;
+        private readonly ILineItemLogic _lineItemLogic;
 
-        public CreateLineItemProcess(IValidator<CreateLineItemRequest> validator, IValidationResultMapper validationResultMapper)
+        public CreateLineItemProcess(
+            IValidator<CreateLineItemRequest> validator, 
+            IValidationResultMapper validationResultMapper,
+            ILineItemLogic lineItemLogic)
         {
             _validator = validator;
             _validationResultMapper = validationResultMapper;
+            _lineItemLogic = lineItemLogic;
         }
 
         public async Task<CreateLineItemResponse> Validate(CreateLineItemRequest request)
@@ -30,7 +36,9 @@ namespace Accountant.API.Processes.LineItem
 
         public async Task<CreateLineItemResponse> Execute(CreateLineItemRequest request)
         {
-            throw new NotImplementedException();
+            var lineItemId = await _lineItemLogic.CreateLineItem(request).ConfigureAwait(false);
+
+            return null;
         }
     }
 }
