@@ -3,6 +3,7 @@ using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes.LineItem;
 using Accountant.Core.Interfaces;
+using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -65,6 +66,22 @@ namespace Accountant.API.UnitTests.Processes.LineItem
                 var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
 
                 _mockValidator.Verify(x => x.ValidateAsync(_request, It.IsAny<CancellationToken>()), Times.Once());
+            }
+
+            [Fact]
+            public async Task CallsValidationResultMapperMapToApiResponse()
+            {
+                var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                _mockValidationResultMapper.Verify(x => x.MapToApiResponse<CreateLineItemResponse>(_validationResult), Times.Once());
+            }
+
+            [Fact]
+            public async Task ReturnsCreateLineItemResponse()
+            {
+                var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                result.Should().Be(_createLineItemResponse);
             }
         }
     }
