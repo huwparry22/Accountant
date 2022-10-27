@@ -58,6 +58,14 @@ namespace Accountant.API.UnitTests.Processes.LineItem
                     .Setup(x => x.MapToApiResponse<CreateLineItemResponse>(It.IsAny<ValidationResult>()))
                     .Returns(_createLineItemResponse);
             }
+
+            [Fact]
+            public async Task CallsValidatorValidateAsync()
+            {
+                var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                _mockValidator.Verify(x => x.ValidateAsync(_request, It.IsAny<CancellationToken>()), Times.Once());
+            }
         }
     }
 }
