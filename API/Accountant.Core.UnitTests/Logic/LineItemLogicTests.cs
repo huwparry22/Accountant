@@ -6,9 +6,6 @@ using Accountant.Data.EntityProviders;
 using FluentAssertions;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -34,7 +31,6 @@ namespace Accountant.Core.UnitTests.Logic
             private readonly CreateLineItemRequest _request;
 
             private readonly LineItem _lineItem;
-            private readonly LineItem _returnLineItem;
 
             public CreateLineItemTests() : base()
             {
@@ -49,20 +45,13 @@ namespace Accountant.Core.UnitTests.Logic
                     Created = DateTime.UtcNow
                 };
 
-                _returnLineItem = new LineItem
-                {
-                    Description = "testDescription",
-                    Created = DateTime.UtcNow,
-                    LineItemId = 99
-                };
-
                 _mockLineItemMapper
                     .Setup(x => x.MapToLineItem(It.IsAny<CreateLineItemRequest>()))
                     .Returns(_lineItem);
 
                 _mockLineItemProvider
                     .Setup(x => x.SaveAsync(It.IsAny<LineItem>()))
-                    .ReturnsAsync(_returnLineItem);
+                    .Callback<LineItem>((lineItem) => _lineItem.LineItemId = 99);
             }
 
             [Fact]
@@ -86,7 +75,7 @@ namespace Accountant.Core.UnitTests.Logic
             {
                 var result = await _objectToTest.CreateLineItem(_request).ConfigureAwait(false);
 
-                result.Should().Be(_returnLineItem.LineItemId);
+                result.Should().Be(_lineItem.LineItemId);
             }
         }
     }
