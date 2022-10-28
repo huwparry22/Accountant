@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Accountant.API.Models;
 
 namespace Accountant.API.Interfaces
 {
     public interface IApiProcessFactory
     {
+        IApiProcess<TRequest, TResponse> GetApiProcess<TRequest, TResponse>()
+            where TRequest : BaseRequest
+            where TResponse : BaseResponse;
     }
 }
