@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Accountant.SolutionBuilder\Accountant.SolutionBuilder.csproj" />
+  </ItemGroup>
+
 </Project>
