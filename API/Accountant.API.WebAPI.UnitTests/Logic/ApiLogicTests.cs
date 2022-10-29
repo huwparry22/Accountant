@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,15 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
+            }
+
+            [Fact]
+            public async Task ReturnsSuccessResponseOnExecute()
+            {
+                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
+                actual.Should().Be(_successResponse);
             }
         }
     }
