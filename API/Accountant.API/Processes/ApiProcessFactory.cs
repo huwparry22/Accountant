@@ -19,7 +19,7 @@ namespace Accountant.API.Processes
             var apiProcess = _serviceProvider.GetService(typeof(IApiProcess<TRequest, TResponse>)) as IApiProcess<TRequest, TResponse>;
 
             if (apiProcess == null)
-                throw new ApplicationException($"No API Process defined for request {nameof(TRequest)}, response {nameof(TResponse)}");
+                throw new ArgumentException($"No API Process defined for request {nameof(TRequest)}, response {nameof(TResponse)}");
 
             return apiProcess;
         }
