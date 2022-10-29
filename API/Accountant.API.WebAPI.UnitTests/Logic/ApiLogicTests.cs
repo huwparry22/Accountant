@@ -85,6 +85,34 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
                 actual.Should().Be(_successResponse);
             }
+
+            private CreateLineItemResponse _validateFailure;
+            private void SetupValidateFailure()
+            {
+                _validateFailure = new CreateLineItemResponse
+                {
+                    Success = false,
+                    Errors = new List<string> { "testValidateError" }
+                };
+
+                _mockCreateLineItemApiProcess
+                    .Setup(x => x.Validate(It.IsAny<CreateLineItemRequest>()))
+                    .ReturnsAsync(_validateFailure);
+            }
+
+            [Fact]
+            public async Task ValidateFailureTests()
+            {
+                SetupValidateFailure();
+
+                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Never);
+
+                actual.Should().Be(_validateFailure);
+            }
         }
     }
 }
