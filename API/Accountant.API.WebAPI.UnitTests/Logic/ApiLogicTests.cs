@@ -86,10 +86,10 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 actual.Should().Be(_successResponse);
             }
 
-            private CreateLineItemResponse _validateFailure;
+            private CreateLineItemResponse _failureResponse;
             private void SetupValidateFailure()
             {
-                _validateFailure = new CreateLineItemResponse
+                _failureResponse = new CreateLineItemResponse
                 {
                     Success = false,
                     Errors = new List<string> { "testValidateError" }
@@ -97,7 +97,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 _mockCreateLineItemApiProcess
                     .Setup(x => x.Validate(It.IsAny<CreateLineItemRequest>()))
-                    .ReturnsAsync(_validateFailure);
+                    .ReturnsAsync(_failureResponse);
             }
 
             [Fact]
@@ -111,7 +111,34 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Never);
 
-                actual.Should().Be(_validateFailure);
+                actual.Should().Be(_failureResponse);
+            }
+
+            private void SetupExecuteFaillure()
+            {
+                _failureResponse = new CreateLineItemResponse
+                {
+                    Success = false,
+                    Errors = new List<string> { "testExecuteFailure" }
+                };
+
+                _mockCreateLineItemApiProcess
+                    .Setup(x => x.Execute(It.IsAny<CreateLineItemRequest>()))
+                    .ReturnsAsync(_failureResponse);
+            }
+
+            [Fact]
+            public async Task ExecuuteFailureTests()
+            {
+                SetupExecuteFaillure();
+
+                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Once);
+
+                actual.Should().Be(_failureResponse);
             }
         }
     }
