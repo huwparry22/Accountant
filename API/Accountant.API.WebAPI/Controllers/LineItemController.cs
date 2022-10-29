@@ -9,11 +9,17 @@ namespace Accountant.API.WebAPI.Controllers
     [ApiController]
     public class LineItemController : ControllerBase
     {
+        private readonly IApiLogic _apiLogic;
 
-        //[HttpPost]
-        //public async Task<ActionResult<CreateLineItemResponse>> Create(CreateLineItemRequest createLineItemRequest)
-        //{
+        public LineItemController(IApiLogic apiLogic)
+        {
+            _apiLogic = apiLogic;
+        }
 
-        //}
+        [HttpPost]
+        public async Task<ActionResult<CreateLineItemResponse>> Create(CreateLineItemRequest createLineItemRequest)
+        {
+            return await _apiLogic.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(createLineItemRequest).ConfigureAwait(false);
+        }
     }
 }
