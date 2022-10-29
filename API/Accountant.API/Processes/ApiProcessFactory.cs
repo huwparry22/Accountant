@@ -16,7 +16,12 @@ namespace Accountant.API.Processes
             where TRequest : BaseRequest
             where TResponse : BaseResponse
         {
-            return _serviceProvider.GetService(typeof(IApiProcess<TRequest, TResponse>)) as IApiProcess<TRequest, TResponse>;
+            var apiProcess = _serviceProvider.GetService(typeof(IApiProcess<TRequest, TResponse>)) as IApiProcess<TRequest, TResponse>;
+
+            if (apiProcess == null)
+                throw new ApplicationException($"No API Process defined for request {nameof(TRequest)}, response {nameof(TResponse)}");
+
+            return apiProcess;
         }
     }
 }
