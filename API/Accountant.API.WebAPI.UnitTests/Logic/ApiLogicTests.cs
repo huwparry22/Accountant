@@ -80,10 +80,9 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 actual.Should().Be(_successResponse);
             }
 
-            private CreateLineItemResponse _failureResponse;
-            private void SetupValidateFailure()
+            private CreateLineItemResponse SetupValidateFailure()
             {
-                _failureResponse = new CreateLineItemResponse
+                var failureResponse = new CreateLineItemResponse
                 {
                     Success = false,
                     Errors = new List<string> { "testValidateError" }
@@ -91,13 +90,15 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 _mockCreateLineItemApiProcess
                     .Setup(x => x.Validate(It.IsAny<CreateLineItemRequest>()))
-                    .ReturnsAsync(_failureResponse);
+                    .ReturnsAsync(failureResponse);
+
+                return failureResponse;
             }
 
             [Fact]
             public async Task ValidateFailureTests()
             {
-                SetupValidateFailure();
+                var exepected = SetupValidateFailure();
 
                 var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
@@ -105,12 +106,12 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Never);
 
-                actual.Should().Be(_failureResponse);
+                actual.Should().Be(exepected);
             }
 
-            private void SetupExecuteFaillure()
+            private CreateLineItemResponse SetupExecuteFaillure()
             {
-                _failureResponse = new CreateLineItemResponse
+                var failureResponse = new CreateLineItemResponse
                 {
                     Success = false,
                     Errors = new List<string> { "testExecuteFailure" }
@@ -118,13 +119,15 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 _mockCreateLineItemApiProcess
                     .Setup(x => x.Execute(It.IsAny<CreateLineItemRequest>()))
-                    .ReturnsAsync(_failureResponse);
+                    .ReturnsAsync(failureResponse);
+
+                return failureResponse;
             }
 
             [Fact]
             public async Task ExecuuteFailureTests()
             {
-                SetupExecuteFaillure();
+                var expected = SetupExecuteFaillure();
 
                 var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
@@ -132,7 +135,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Once);
 
-                actual.Should().Be(_failureResponse);
+                actual.Should().Be(expected);
             }
         }
     }
