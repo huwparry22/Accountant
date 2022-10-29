@@ -23,15 +23,41 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
         public class RunApiProcessTests : ApiLogicTests
         {
-            private readonly Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>> _mockCreateLiineItemApiProcess;
+            private readonly CreateLineItemRequest _createLineItemRequest;
+
+            private readonly CreateLineItemResponse _successResponse;
+            private readonly Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>> _mockCreateLineItemApiProcess;
 
             public RunApiProcessTests() : base()
             {
-                _mockCreateLiineItemApiProcess = new Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>>();
+                _createLineItemRequest = new CreateLineItemRequest();
+
+                _mockCreateLineItemApiProcess = new Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>>();
+
+                _successResponse = new CreateLineItemResponse
+                {
+                    Success = true
+                };
+
+                _mockCreateLineItemApiProcess
+                    .Setup(x => x.Validate(It.IsAny<CreateLineItemRequest>()))
+                    .ReturnsAsync(_successResponse);
+
+                _mockCreateLineItemApiProcess
+                    .Setup(x => x.Execute(It.IsAny<CreateLineItemRequest>()))
+                    .ReturnsAsync(_successResponse);
 
                 _mockApiProcessFactory
                     .Setup(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>())
-                    .Returns(_mockCreateLiineItemApiProcess.Object);
+                    .Returns(_mockCreateLineItemApiProcess.Object);
+            }
+
+            [Fact]
+            public async Task CallsApiProcessFactoryGetApiProcess()
+            {
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
             }
         }
     }
