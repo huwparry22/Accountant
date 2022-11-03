@@ -3,15 +3,9 @@ using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes.LineItem;
 using Accountant.Core.Interfaces;
-using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accountant.API.UnitTests.Processes.LineItem
 {

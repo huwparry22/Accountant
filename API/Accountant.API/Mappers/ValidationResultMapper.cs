@@ -6,12 +6,12 @@ namespace Accountant.API.Mappers
 {
     public class ValidationResultMapper : IValidationResultMapper
     {
-        public Response MapToApiResponse<Response>(ValidationResult validationResult) where Response : BaseResponse, new()
+        public TResponse MapToApiResponse<TResponse>(ValidationResult validationResult) where TResponse : BaseResponse, new()
         {
             if (validationResult == null)
                 throw new ArgumentNullException(nameof(validationResult));
 
-            return new Response
+            return new TResponse
             {
                 Success = validationResult.IsValid,
                 Errors = validationResult.IsValid
