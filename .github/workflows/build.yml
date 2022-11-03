@@ -13,8 +13,8 @@ jobs:
 
     env:
       solution: API/Accountant.sln
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      # SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
     - uses: actions/checkout@v2
@@ -74,5 +74,5 @@ jobs:
         echo 'dotnet build'
         dotnet build $env:solution --no-restore
         echo 'dotnet-coverage test'
-        dotnet-coverage collect 'dotnet test $env:solution' -f xml  -o 'coverage.xml'
+        dotnet-coverage collect 'dotnet test ${{ env:solution }}' -f xml  -o 'coverage.xml'
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
