@@ -77,5 +77,5 @@ jobs:
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
         dotnet restore $env:solution
         dotnet build $env:solution --no-restore
-        dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+        dotnet-coverage collect 'dotnet test $env:solution' -f xml  -o 'coverage.xml'
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
