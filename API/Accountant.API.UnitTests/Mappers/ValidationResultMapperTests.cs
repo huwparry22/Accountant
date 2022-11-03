@@ -1,6 +1,7 @@
 ﻿using Accountant.API.Mappers;
 using Accountant.API.Models.Responses.LineItem;
 using FluentValidation.Results;
+using System.Configuration.Internal;
 
 namespace Accountant.API.UnitTests.Mappers
 {
@@ -21,12 +22,21 @@ namespace Accountant.API.UnitTests.Mappers
             [ClassData(typeof(MapToApiResponseTestData))]
             public void MapToApiResponseTest(ValidationResult parameter, CreateLineItemResponse expected)
             {
-                var actual = _objectToTest.MapToApiResponse<CreateLineItemResponse>(parameter);
+                if (parameter == null)
+                {
+                    _objectToTest.Invoking(x => x.MapToApiResponse<CreateLineItemResponse>(parameter))
+                        .Should()
+                        .ThrowExactly<ArgumentNullException>();
+                }
+                else
+                {
+                    var actual = _objectToTest.MapToApiResponse<CreateLineItemResponse>(parameter);
 
-                actual.Should().BeEquivalentTo(expected);
+                    actual.Should().BeEquivalentTo(expected);
+                }
             }
 
-            public class MapToApiResponseTestData : TheoryData<ValidationResult, CreateLineItemResponse>
+            public class MapToApiResponseTestData : TheoryData<ValidationResult?, CreateLineItemResponse?>
             {
                 public MapToApiResponseTestData()
                 {
@@ -51,6 +61,8 @@ namespace Accountant.API.UnitTests.Mappers
                         Success = false,
                         Errors = new List<string> { "testErrorMessage" }
                     });
+
+                    Add(null, null);
                 }
             }
         }
