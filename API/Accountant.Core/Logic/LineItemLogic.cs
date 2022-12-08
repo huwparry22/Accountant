@@ -1,11 +1,6 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.Core.Interfaces;
 using Accountant.Data.EntityProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accountant.Core.Logic
 {

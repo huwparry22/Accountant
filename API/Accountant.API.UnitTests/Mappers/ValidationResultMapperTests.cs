@@ -1,7 +1,6 @@
 ﻿using Accountant.API.Mappers;
 using Accountant.API.Models.Responses.LineItem;
 using FluentValidation.Results;
-using System.Configuration.Internal;
 
 namespace Accountant.API.UnitTests.Mappers
 {
