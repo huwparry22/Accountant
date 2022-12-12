@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Accountant.API.Interfaces;
+﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Processes;
-using Accountant.API.Processes.LineItem;
-using FluentAssertions.Common;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 namespace Accountant.API.UnitTests.Processes
