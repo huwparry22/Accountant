@@ -16,11 +16,11 @@ namespace Accountant.API.UnitTests.Processes
 {
     public class ApiProcessFactoryTests
     {
-        private readonly Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>> _mockCreateLineItemProcess;
+        private Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>> _mockCreateLineItemProcess;
 
-        private readonly ApiProcessFactory _objectToTest;
+        private ApiProcessFactory _objectToTest;
 
-        public ApiProcessFactoryTests()
+        private void SetupApiProcessFactoryTests(bool includeCreateLineItemService)
         {
             _mockCreateLineItemProcess = new Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>>();
 
@@ -35,6 +35,8 @@ namespace Accountant.API.UnitTests.Processes
         [Fact]
         public void ReturnsFoundIApiProcessSuccessfully()
         {
+            SetupApiProcessFactoryTests(true);
+
             var result = _objectToTest.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>();
 
             result.Should().NotBeNull();
