@@ -67,7 +67,8 @@ namespace Accountant.API.UnitTests.Processes.LineItem
             {
                 var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
 
-                _mockValidationResultMapper.Verify(x => x.MapToApiResponse<CreateLineItemResponse>(_validationResult), Times.Once());
+                _mockValidationResultMapper.Verify(x => x.MapToApiResponse<CreateLineItemResponse>(_validationResult),
+                    Times.Once());
             }
 
             [Fact]
@@ -76,6 +77,38 @@ namespace Accountant.API.UnitTests.Processes.LineItem
                 var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
 
                 result.Should().Be(_createLineItemResponse);
+            }
+        }
+
+        public class ExecuteTests : CreateLineItemProcessTests
+        {
+            private readonly CreateLineItemRequest _request;
+
+            private readonly CreateLineItemResponse _createLineItemResponse;
+
+            private readonly int _lineItemId = 99;
+
+            public ExecuteTests() : base()
+            {
+                _request = new CreateLineItemRequest();
+
+                _createLineItemResponse = new CreateLineItemResponse
+                {
+                    Success = true,
+                    LineItemId = _lineItemId
+                };
+
+                _mockLineItemLogic
+                    .Setup(x => x.CreateLineItem(It.IsAny<CreateLineItemRequest>()))
+                    .ReturnsAsync(_lineItemId);
+            }
+
+            [Fact]
+            public async Task CallsLineItemLogicCreateLineItem()
+            {
+                var result = await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+                _mockLineItemLogic.Verify(x => x.CreateLineItem(_request), Times.Once);
             }
         }
     }
