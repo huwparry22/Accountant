@@ -25,9 +25,13 @@ namespace Accountant.API.UnitTests.Processes
             _mockCreateLineItemProcess = new Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>>();
 
             var mockServiceProvider = new Mock<IServiceProvider>();
-            mockServiceProvider
-                .Setup(x => x.GetService(typeof(IApiProcess<CreateLineItemRequest, CreateLineItemResponse>)))
-                .Returns(_mockCreateLineItemProcess.Object);
+
+            if (includeCreateLineItemService)
+            {
+                mockServiceProvider
+                    .Setup(x => x.GetService(typeof(IApiProcess<CreateLineItemRequest, CreateLineItemResponse>)))
+                    .Returns(_mockCreateLineItemProcess.Object);
+            }
 
             _objectToTest = new ApiProcessFactory(mockServiceProvider.Object);
         }
@@ -41,6 +45,16 @@ namespace Accountant.API.UnitTests.Processes
 
             result.Should().NotBeNull();
             result.Should().BeSameAs(_mockCreateLineItemProcess.Object);
+        }
+
+        [Fact]
+        public void ThrowsExceptionWhenIApiProcessNotFound()
+        {
+            SetupApiProcessFactoryTests(false);
+
+            var ex = Assert.Throws<ArgumentException>(() => _objectToTest.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>());
+
+            Assert.Equal($"No API Process defined for request {nameof(CreateLineItemRequest)}, response {nameof(CreateLineItemResponse)}", ex.Message);
         }
     }
 }
