@@ -110,6 +110,14 @@ namespace Accountant.API.UnitTests.Processes.LineItem
 
                 _mockLineItemLogic.Verify(x => x.CreateLineItem(_request), Times.Once);
             }
+
+            [Fact]
+            public async Task ReturnsCorrectCreateLineItemResponse()
+            {
+                var result = await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+                result.Should().BeEquivalentTo(_createLineItemResponse);
+            }
         }
     }
 }
