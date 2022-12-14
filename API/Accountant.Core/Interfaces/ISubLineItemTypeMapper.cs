@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Accountant.Data.Entities.Enums;
 
 namespace Accountant.Core.Interfaces
 {
     public interface ISubLineItemTypeMapper
     {
+        SubLineItemType GetEntitySubLineItemType(API.Models.Requests.SubLineItemType? subLineItemTypeModel);
     }
 }
