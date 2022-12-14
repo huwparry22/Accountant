@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddCoreProjectServices(this IServiceCollection services)
         {
             services.AddTransient<ILineItemLogic, LineItemLogic>();
+            services.AddTransient<ISubLineItemLogic, SubLineItemLogic>();
 
             services.AddTransient<ILineItemMapper, LineItemMapper>();
         }
