@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<ILineItemMapper, LineItemMapper>();
             services.AddTransient<ISubLineItemMapper, SubLineItemMapper>();
+            services.AddTransient<ISubLineItemTypeMapper, SubLineItemTypeMapper>();
         }
     }
 }
