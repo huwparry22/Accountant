@@ -50,5 +50,13 @@ namespace Accountant.Core.UnitTests.Logic
 
             _mockSubLineItemMapper.Verify(x => x.GetSubLineItem(_createSubLineItemRequest), Times.Once());
         }
+
+        [Fact]
+        public async Task CallsSubLineItemProviderSaveAsync()
+        {
+            await _objectToTest.CreateSubLineItem(_createSubLineItemRequest).ConfigureAwait(false);
+
+            _mockSubLineItemProvider.Verify(x => x.SaveAsync(_subLineItem), Times.Once());
+        }
     }
 }
