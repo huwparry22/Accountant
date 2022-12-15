@@ -60,5 +60,24 @@ namespace Accountant.API.UnitTests.Validation.Common
                 .ShouldHaveValidationErrorFor(x => x.LineItemId)
                 .WithErrorMessage("Invalid LineItemId - no value provided");
         }
+
+        [Fact]
+        public async Task Invalid_LineItemIdNotFound()
+        {
+            _mockLineItemLogic
+                .Setup(x => x.GetLineItemByLineItemId(It.IsAny<int>()))
+                .ReturnsAsync((Data.Entities.LineItem)null);
+
+            var request = new CreateSubLineItemRequest
+            {
+                LineItemId = 99
+            };
+
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+
+            actual
+                .ShouldHaveValidationErrorFor(x => x.LineItemId)
+                .WithErrorMessage("Invalid LineItemId - not found");
+        }
     }
 }
