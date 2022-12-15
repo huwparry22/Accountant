@@ -22,7 +22,7 @@ namespace Accountant.Core.UnitTests.Mappers
 
         private readonly SubLineItemMapper _objectToTest;
 
-        public SubLineItemMapperTests()
+        private SubLineItemMapperTests()
         {
             _mockSubLineItemTypeMapper = new Mock<ISubLineItemTypeMapper>();
 
@@ -35,10 +35,7 @@ namespace Accountant.Core.UnitTests.Mappers
 
         public class GetSubLineItemTests : SubLineItemMapperTests
         {
-            public GetSubLineItemTests() : base()
-            {
-
-            }
+            public GetSubLineItemTests() : base() { }
 
             [Fact]
             public void ArgumentNullExceptionWhenParameterIsNull()
@@ -81,30 +78,36 @@ namespace Accountant.Core.UnitTests.Mappers
                     .WithMessage("Amount property cannot be null (Parameter 'subLineItemRequest')");
             }
 
-            //[Theory]
-            //[ClassData(typeof(GetSubLineItemTestData))]
-            //public void GetSubLineItemTheoryDataTests(CreateSubLineItemRequest? parameter, SubLineItem? expected)
-            //{
-            //}
+            [Theory]
+            [ClassData(typeof(GetSubLineItemTestData))]
+            public void GetSubLineItemTheoryDataTests(CreateSubLineItemRequest parameter, SubLineItem expected)
+            {
+                var actual = _objectToTest.GetSubLineItem(parameter);
+
+                _mockSubLineItemTypeMapper.Verify(x => x.GetEntitySubLineItemType(parameter.SubLineItemType), Times.Once());
+
+                actual.Should().BeEquivalentTo(expected);
+            }
         }
 
-        public class GetSubLineItemTestData : TheoryData<CreateSubLineItemRequest?, SubLineItem?>
+        private class GetSubLineItemTestData : TheoryData<CreateSubLineItemRequest, SubLineItem>
         {
             public GetSubLineItemTestData()
             {
-                Add(null, null);
-
-                //Add(new CreateSubLineItemRequest
-                //    {
-                //        LineItemId = null
-                //    },
-                //    null);
-
-                //Add(new CreateSubLineItemRequest
-                //    {
-                //        Amount = null
-                //    },
-                //    null);
+                Add(new CreateSubLineItemRequest
+                    {
+                        LineItemId = 99,
+                        Description = "testGetSubLineItem_Description",
+                        Amount = 99.99M,
+                        SubLineItemType = API.Models.Requests.SubLineItemType.Income
+                    },
+                    new SubLineItem
+                    {
+                        LineItemId = 99,
+                        Description = "testGetSubLineItem_Description",
+                        Amount = 99.99M,
+                        SubLineItemTypeId = TestSubLineItemTypeEntity
+                    });
             }
         }
     }
