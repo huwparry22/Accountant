@@ -48,5 +48,17 @@ namespace Accountant.API.UnitTests.Validation.Common
             _mockLineItemLogic.Verify(x => x.GetLineItemByLineItemId(request.LineItemId.Value), Times.Once());
             actual.ShouldNotHaveAnyValidationErrors();
         }
+
+        [Fact]
+        public async Task Invalid_NullLineItemId()
+        {
+            var request = new CreateSubLineItemRequest();
+
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+
+            actual
+                .ShouldHaveValidationErrorFor(x => x.LineItemId)
+                .WithErrorMessage("Invalid LineItemId - no value provided");
+        }
     }
 }

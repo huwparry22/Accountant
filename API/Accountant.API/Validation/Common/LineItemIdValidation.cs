@@ -12,10 +12,14 @@ namespace Accountant.API.Validation.Common
         {
             _lineItemLogic = lineItemLogic;
 
+            this.CascadeMode = CascadeMode.Stop;
+
             RuleFor(request => request.LineItemId)
                 .NotEmpty()
+                .WithMessage("Invalid LineItemId - no value provided")
                 //User validation
-                .MustAsync((lineItemId, cancellationToken) => ValidLineItemId(lineItemId));
+                .MustAsync((lineItemId, cancellationToken) => ValidLineItemId(lineItemId))
+                .WithMessage("Invalid LineItemId - not found");
                 //LineItemId valid for user
         }
 
