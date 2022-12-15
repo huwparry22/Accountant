@@ -12,7 +12,7 @@ namespace Accountant.API.Validation.Common
         {
             _lineItemLogic = lineItemLogic;
 
-            this.CascadeMode = CascadeMode.Stop;
+            this.ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(request => request.LineItemId)
                 .NotEmpty()

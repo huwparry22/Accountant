@@ -17,7 +17,7 @@ namespace Accountant.API.Validation.SubLineItem
         {
             _lineItemIdValidation = lineItemIdValidation;
 
-            this.CascadeMode = CascadeMode.Stop;
+            this.ClassLevelCascadeMode = CascadeMode.Stop;
 
             Include(_lineItemIdValidation);
 
