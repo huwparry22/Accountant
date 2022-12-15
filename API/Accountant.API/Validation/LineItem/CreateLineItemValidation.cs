@@ -8,7 +8,7 @@ namespace Accountant.API.Validation.LineItem
         public CreateLineItemValidation()
         {
             RuleFor(createLineItemRequest => createLineItemRequest.Description)
-                .Must(description => ValidDescription(description))
+                .Must(ValidDescription)
                 .WithMessage("Invalid description");
         }
 

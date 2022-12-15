@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Accountant.API.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Accountant.API.Models.Requests.SubLineItem
 {
-    public  class CreateSubLineItemRequest : BaseRequest
+    public  class CreateSubLineItemRequest : BaseRequest, ILineItemId
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "LineItemId required")]
         public int? LineItemId { get; set; }

@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.Core.Interfaces;
+using Accountant.Data.Entities;
 using Accountant.Data.EntityProviders;
 
 namespace Accountant.Core.Logic
@@ -23,5 +24,7 @@ namespace Accountant.Core.Logic
 
             return entity.LineItemId;
         }
+
+        public async Task<LineItem> GetLineItemByLineItemId(int lineItemId) => await _lineItemProvider.GetByLineItemIdAsync(lineItemId).ConfigureAwait(false);
     }
 }
