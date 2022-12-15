@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Accountant.API.Models.Requests.SubLineItem;
 
 namespace Accountant.Core.Interfaces
 {
     public interface ISubLineItemLogic
     {
+        Task<int> CreateSubLineItem(CreateSubLineItemRequest createSubLineItemRequest);
     }
 }
