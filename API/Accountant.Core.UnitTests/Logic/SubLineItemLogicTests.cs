@@ -3,6 +3,7 @@ using Accountant.Core.Interfaces;
 using Accountant.Core.Logic;
 using Accountant.Data.Entities;
 using Accountant.Data.EntityProviders;
+using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Accountant.Core.UnitTests.Logic
 
         private readonly CreateSubLineItemRequest _createSubLineItemRequest;
         private readonly SubLineItem _subLineItem;
-        private readonly int _SubLineItemId;
+        private readonly int _subLineItemId;
 
         private readonly SubLineItemLogic _objectToTest;
 
@@ -28,7 +29,7 @@ namespace Accountant.Core.UnitTests.Logic
         {
             _createSubLineItemRequest = new CreateSubLineItemRequest();
             _subLineItem = new SubLineItem();
-            _SubLineItemId = 99;
+            _subLineItemId = 99;
 
             _mockSubLineItemMapper = new Mock<ISubLineItemMapper>();
             _mockSubLineItemMapper
@@ -38,7 +39,7 @@ namespace Accountant.Core.UnitTests.Logic
             _mockSubLineItemProvider = new Mock<ISubLineItemProvider>();
             _mockSubLineItemProvider
                 .Setup(x => x.SaveAsync(It.IsAny<SubLineItem>()))
-                .Callback<SubLineItem>((subLineItem) => subLineItem.SubLineItemId = _SubLineItemId);
+                .Callback<SubLineItem>((subLineItem) => subLineItem.SubLineItemId = _subLineItemId);
 
             _objectToTest = new SubLineItemLogic(_mockSubLineItemMapper.Object, _mockSubLineItemProvider.Object);
         }
@@ -57,6 +58,14 @@ namespace Accountant.Core.UnitTests.Logic
             await _objectToTest.CreateSubLineItem(_createSubLineItemRequest).ConfigureAwait(false);
 
             _mockSubLineItemProvider.Verify(x => x.SaveAsync(_subLineItem), Times.Once());
+        }
+
+        [Fact]
+        public async Task ReturnsSubLineItemId()
+        {
+            var actual = await _objectToTest.CreateSubLineItem(_createSubLineItemRequest).ConfigureAwait(false);
+
+            actual.Should().Be(_subLineItemId);
         }
     }
 }
