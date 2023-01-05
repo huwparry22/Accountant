@@ -68,12 +68,7 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
         {
             SetupLineItemIdValidationFailure();
 
-            var request = new CreateSubLineItemRequest
-            {
-                Amount = 99,
-                Description = "testDescription",
-                SubLineItemType = Models.Requests.SubLineItemType.Income
-            };
+            var request = new CreateSubLineItemRequest();
 
             var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
 
