@@ -136,5 +136,27 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
                 .WithErrorMessage("Invalid Description - no value provided")
                 .Only();
         }
+
+        [Fact]
+        public async Task Invalid_SubLineItemType()
+        {
+            SetupLineItemIdValidationSuccess();
+
+            var request = new CreateSubLineItemRequest
+            {
+                Amount = 99,
+                Description = "testDescription",
+                SubLineItemType = null
+            };
+
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+
+            _mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
+
+            actual
+                .ShouldHaveValidationErrorFor(x => x.SubLineItemType)
+                .WithErrorMessage("Invalid SubLineItemType - invalid value")
+                .Only();
+        }
     }
 }

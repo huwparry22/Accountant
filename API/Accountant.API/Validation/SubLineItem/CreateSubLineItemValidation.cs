@@ -33,7 +33,7 @@ namespace Accountant.API.Validation.SubLineItem
                 .WithMessage("Invalid Description - no value provided");
 
             RuleFor(createSubLineItemRequest => createSubLineItemRequest.SubLineItemType)
-                .IsInEnum()
+                .NotEmpty()
                 .WithMessage("Invalid SubLineItemType - invalid value");
         }
     }
