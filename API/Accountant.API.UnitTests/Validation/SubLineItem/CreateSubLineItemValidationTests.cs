@@ -5,12 +5,6 @@ using FluentValidation;
 using FluentValidation.Results;
 using FluentValidation.TestHelper;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accountant.API.UnitTests.Validation.SubLineItem
 {
@@ -19,8 +13,6 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
         private readonly Mock<IValidator<ILineItemId>> _mockLineItemIdValidation;
 
         private readonly CreateSubLineItemValidation _objectToTest;
-
-        private IValidationContext _validationContext;
 
         public CreateSubLineItemValidationTests()
         {
@@ -33,7 +25,6 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
         {
             _mockLineItemIdValidation
                 .Setup(x => x.ValidateAsync(It.IsAny<IValidationContext>(), It.IsAny<CancellationToken>()))
-                .Callback<IValidationContext, CancellationToken>((validationContext, cancellationToken) => _validationContext = validationContext)
                 .ReturnsAsync(new FluentValidation.Results.ValidationResult());
         }
 
