@@ -40,8 +40,8 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
         private void SetupLineItemIdValidationFailure()
         {
             _mockLineItemIdValidation
-                .Setup(x => x.ValidateAsync(It.IsAny<IValidationContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new FluentValidation.Results.ValidationResult(new List<ValidationFailure> { new ValidationFailure("LineItemId", "TestErrorMessage") }));
+                .Setup(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()))
+                .Callback<IValidationContext, CancellationToken>((validationContext, cancellationToken) => ((ValidationContext<CreateSubLineItemRequest>)validationContext).AddFailure(new ValidationFailure(nameof(CreateSubLineItemRequest.LineItemId), "TestErrorMessage")));
         }
 
         [Fact]
@@ -58,34 +58,30 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
 
             var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
 
-            //_mockLineItemIdValidation.Verify(x => x.ValidateAsync(request, It.IsAny<CancellationToken>()), Times.Once());
-            //_mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
-            _validationContext.Should().BeOfType<ValidationContext<CreateSubLineItemRequest>>();
+            _mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
+
             actual.ShouldNotHaveAnyValidationErrors();
         }
 
-        //[Fact]
-        //public async Task Invalid_LineItemId()
-        //{
-        //    SetupLineItemIdValidationFailure();
+        [Fact]
+        public async Task Invalid_LineItemId()
+        {
+            SetupLineItemIdValidationFailure();
 
-        //    var request = new CreateSubLineItemRequest
-        //    {
-        //        Amount = 99,
-        //        Description = "testDescription",
-        //        SubLineItemType = Models.Requests.SubLineItemType.Income
-        //    };
+            var request = new CreateSubLineItemRequest
+            {
+                Amount = 99,
+                Description = "testDescription",
+                SubLineItemType = Models.Requests.SubLineItemType.Income
+            };
 
-        //    var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
 
-        //    //_mockLineItemIdValidation.Verify(x => x.ValidateAsync(request, It.IsAny<CancellationToken>()), Times.Once());
-        //    //_mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
-        //    //_validationContext.Should().BeOfType<ValidationContext<CreateSubLineItemRequest>>();
+            _mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
 
-
-        //    actual
-        //        .ShouldHaveValidationErrorFor(x => x.LineItemId)
-        //        .Only();
-        //}
+            actual
+                .ShouldHaveValidationErrorFor(x => x.LineItemId)
+                .Only();
+        }
     }
 }
