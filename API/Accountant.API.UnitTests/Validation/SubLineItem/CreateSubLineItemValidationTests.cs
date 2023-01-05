@@ -115,5 +115,26 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
                 .WithErrorMessage("Invalid amount - invalid value")
                 .Only();
         }
+
+        [Fact]
+        public async Task Invalid_Description()
+        {
+            SetupLineItemIdValidationSuccess();
+
+            var request = new CreateSubLineItemRequest
+            {
+                Amount = 99,
+                Description = string.Empty
+            };
+
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+
+            _mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
+
+            actual
+                .ShouldHaveValidationErrorFor(x => x.Description)
+                .WithErrorMessage("Invalid Description - no value provided")
+                .Only();
+        }
     }
 }
