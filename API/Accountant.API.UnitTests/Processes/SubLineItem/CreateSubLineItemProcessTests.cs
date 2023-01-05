@@ -1,18 +1,11 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.SubLineItem;
+using Accountant.API.Models.Responses.SubLineItem;
+using Accountant.API.Processes.SubLineItem;
 using Accountant.Core.Interfaces;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using Accountant.API.Processes.SubLineItem;
-using Accountant.API.Models.Requests.LineItem;
-using Accountant.API.Models.Responses.LineItem;
-using Accountant.API.Models.Responses.SubLineItem;
 using FluentValidation.Results;
+using Moq;
 
 namespace Accountant.API.UnitTests.Processes.SubLineItem
 {
@@ -76,11 +69,51 @@ namespace Accountant.API.UnitTests.Processes.SubLineItem
             }
 
             [Fact]
-            public async Task ReturnsCreateLineItemResponse()
+            public async Task ReturnsCreateSubLineItemResponse()
             {
                 var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
 
                 result.Should().Be(_createSubLineItemResponse);
+            }
+        }
+
+        public class ExecuteTests : CreateSubLineItemProcessTests
+        {
+            private readonly CreateSubLineItemRequest _request;
+
+            private readonly CreateSubLineItemResponse _createSubLineItemResponse;
+
+            private readonly int _subLineItemId = 99;
+
+            public ExecuteTests() : base()
+            {
+                _request = new CreateSubLineItemRequest();
+
+                _createSubLineItemResponse = new CreateSubLineItemResponse
+                {
+                    Success = true,
+                    SubLineItemId = _subLineItemId
+                };
+
+                _mockSubLineItemLogic
+                    .Setup(x => x.CreateSubLineItem(It.IsAny<CreateSubLineItemRequest>()))
+                    .ReturnsAsync(_subLineItemId);
+            }
+
+            [Fact]
+            public async Task CallsSubLineItemLogicCreateSubLineItem()
+            {
+                var result = await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+                _mockSubLineItemLogic.Verify(x => x.CreateSubLineItem(_request), Times.Once);
+            }
+
+            [Fact]
+            public async Task ReturnsCorrectCreateSubLineItemResponse()
+            {
+                var result = await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+                result.Should().BeEquivalentTo(_createSubLineItemResponse);
             }
         }
     }
