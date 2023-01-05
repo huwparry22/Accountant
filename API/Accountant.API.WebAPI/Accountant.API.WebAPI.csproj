@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Accountant.Data.SqlServer.Migrations\Accountant.Data.SqlServer.Migrations.csproj" />
     <ProjectReference Include="..\Accountant.SolutionBuilder\Accountant.SolutionBuilder.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.Configuration
     {
         public static IConfigurationBuilder AddSolutionConfiguration(this IConfigurationBuilder configurationBuilder, IHostEnvironment hostEnvironment)
         {
-            configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);            
+            configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
             return configurationBuilder;
         }

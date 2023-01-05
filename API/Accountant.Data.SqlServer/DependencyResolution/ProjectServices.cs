@@ -25,5 +25,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<ILineItemProvider, LineItemProvider>();
             services.AddTransient<ISubLineItemProvider, SubLineItemProvider>();
         }
+
+        public static void SetupDatabase(this IServiceProvider serviceProvider)
+        {
+            using var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider.GetService<AccountantContext>()?.Database.Migrate();
+        }
     }
 }

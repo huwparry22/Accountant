@@ -55,4 +55,6 @@ app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
 
 app.MapControllers();
 
+app.SetupApplicationStore();
+
 app.Run();
