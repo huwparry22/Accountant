@@ -92,6 +92,7 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
 
             actual
                 .ShouldHaveValidationErrorFor(x => x.Amount)
+                .WithErrorMessage("Invalid amount - no value provided")
                 .Only();
         }
 
@@ -111,6 +112,7 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
 
             actual
                 .ShouldHaveValidationErrorFor(x => x.Amount)
+                .WithErrorMessage("Invalid amount - invalid value")
                 .Only();
         }
     }
