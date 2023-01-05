@@ -1,13 +1,8 @@
 ﻿using Accountant.API.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Accountant.API.Models.Requests.SubLineItem;
 using Accountant.API.Models.Responses.SubLineItem;
-using FluentValidation;
 using Accountant.Core.Interfaces;
+using FluentValidation;
 
 namespace Accountant.API.Processes.SubLineItem
 {
@@ -24,14 +19,22 @@ namespace Accountant.API.Processes.SubLineItem
             _subLineItemLogic = subLineItemLogic;
         }
 
-        public Task<CreateSubLineItemResponse> Validate(CreateSubLineItemRequest request)
+        public async Task<CreateSubLineItemResponse> Validate(CreateSubLineItemRequest request)
         {
-            throw new NotImplementedException();
+            var validationResult = await _validator.ValidateAsync(request).ConfigureAwait(false);
+
+            return _validationResultMapper.MapToApiResponse<CreateSubLineItemResponse>(validationResult);
         }
 
-        public Task<CreateSubLineItemResponse> Execute(CreateSubLineItemRequest request)
+        public async Task<CreateSubLineItemResponse> Execute(CreateSubLineItemRequest request)
         {
-            throw new NotImplementedException();
+            var subLineItemId = await _subLineItemLogic.CreateSubLineItem(request).ConfigureAwait(false);
+
+            return new CreateSubLineItemResponse
+            {
+                Success = true,
+                SubLineItemId = subLineItemId
+            };
         }
     }
 }
