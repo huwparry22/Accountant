@@ -94,5 +94,24 @@ namespace Accountant.API.UnitTests.Validation.SubLineItem
                 .ShouldHaveValidationErrorFor(x => x.Amount)
                 .Only();
         }
+
+        [Fact]
+        public async Task Invalid_Amount_Zero()
+        {
+            SetupLineItemIdValidationSuccess();
+
+            var request = new CreateSubLineItemRequest
+            {
+                Amount = 0
+            };
+
+            var actual = await _objectToTest.TestValidateAsync(request).ConfigureAwait(false);
+
+            _mockLineItemIdValidation.Verify(x => x.ValidateAsync(It.IsAny<ValidationContext<CreateSubLineItemRequest>>(), It.IsAny<CancellationToken>()), Times.Once());
+
+            actual
+                .ShouldHaveValidationErrorFor(x => x.Amount)
+                .Only();
+        }
     }
 }
