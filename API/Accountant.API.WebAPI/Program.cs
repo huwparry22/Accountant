@@ -1,4 +1,6 @@
 using Accountant.API.WebAPI.Middleware;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,21 @@ builder.Services.AddSolutionServices(builder.Environment);
 builder.Services.AddWebApiProjectServices();
 
 builder.Services.AddControllers();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = new HeaderApiVersionReader("X-API-Version");
+});
+
+builder.Services.AddVersionedApiExplorer(setup =>
+{
+    setup.GroupNameFormat = "'v'VVV";
+    setup.SubstituteApiVersionInUrl = true;
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -40,11 +57,19 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        foreach(var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
 }
 
 app.UseHttpsRedirection();
