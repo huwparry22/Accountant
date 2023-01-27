@@ -10,6 +10,8 @@ builder.Configuration.AddSolutionConfiguration(builder.Environment);
 builder.Services.AddSolutionServices(builder.Environment);
 builder.Services.AddWebApiProjectServices();
 
+builder.Services.AddMicrosoftIdentityWebApi();
+
 builder.Services.AddControllers();
 
 builder.Services.AddApiVersioning(options =>
