@@ -10,7 +10,7 @@ builder.Configuration.AddSolutionConfiguration(builder.Environment);
 builder.Services.AddSolutionServices(builder.Environment);
 builder.Services.AddWebApiProjectServices();
 
-builder.Services.AddMicrosoftIdentityWebApi();
+builder.Services.AddAzureB2C();
 
 builder.Services.AddControllers();
 

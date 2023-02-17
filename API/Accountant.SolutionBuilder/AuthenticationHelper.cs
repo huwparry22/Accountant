@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class AuthenticationHelper
     {
-        public static void AddMicrosoftIdentityWebApi(this IServiceCollection services)
+        public static void AddAzureB2C(this IServiceCollection services)
         {
             var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
 
