@@ -1,9 +1,10 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Accountant.API.WebAPI.Logic
 {
-    public class ApiLogic : IApiLogic
+    public class ApiLogic : ControllerBase, IApiLogic
     {
         private readonly IApiProcessFactory _apiProcessFactory;
 
