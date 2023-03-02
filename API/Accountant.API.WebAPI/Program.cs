@@ -10,6 +10,8 @@ builder.Configuration.AddSolutionConfiguration(builder.Environment);
 builder.Services.AddSolutionServices(builder.Environment);
 builder.Services.AddWebApiProjectServices();
 
+builder.Services.AddAzureB2C();
+
 builder.Services.AddControllers();
 
 builder.Services.AddApiVersioning(options =>
@@ -28,32 +30,33 @@ builder.Services.AddVersionedApiExplorer(setup =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("ApiKeyAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-    {
-        Name = "X-API-Key",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        Scheme = "ApiKey",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Description = "X-API-Key header required."
-    });
+builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.AddSecurityDefinition("ApiKeyAuth", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+//    {
+//        Name = "X-API-Key",
+//        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+//        Scheme = "ApiKey",
+//        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+//        Description = "X-API-Key header required."
+//    });
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = "ApiKeyAuth"
-                    }
-                },
-                Array.Empty<string>()
-        }
-    });
-});
+//    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+//    {
+//        {
+//                new OpenApiSecurityScheme
+//                {
+//                    Reference = new OpenApiReference
+//                    {
+//                        Type = ReferenceType.SecurityScheme,
+//                        Id = "ApiKeyAuth"
+//                    }
+//                },
+//                Array.Empty<string>()
+//        }
+//    });
+//});
 
 var app = builder.Build();
 
@@ -74,9 +77,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
+//app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
 
 app.MapControllers();
 
