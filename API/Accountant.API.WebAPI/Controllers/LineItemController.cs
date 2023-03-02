@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
+using Accountant.API.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

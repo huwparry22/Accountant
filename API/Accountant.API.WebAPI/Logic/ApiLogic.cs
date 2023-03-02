@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models;
+using Accountant.API.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accountant.API.WebAPI.Logic

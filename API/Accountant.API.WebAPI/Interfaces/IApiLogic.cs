@@ -1,6 +1,6 @@
 ﻿using Accountant.API.Models;
 
-namespace Accountant.API.WebAPI
+namespace Accountant.API.WebAPI.Interfaces
 {
     public interface IApiLogic
     {

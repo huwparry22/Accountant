@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Models.Requests.SubLineItem;
 using Accountant.API.Models.Responses.SubLineItem;
+using Accountant.API.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accountant.API.WebAPI.Controllers
