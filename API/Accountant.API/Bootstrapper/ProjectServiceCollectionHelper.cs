@@ -3,11 +3,14 @@ using Accountant.API.Mappers;
 using Accountant.API.Models.Interfaces;
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Requests.SubLineItem;
+using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Models.Responses.SubLineItem;
+using Accountant.API.Models.Responses.User;
 using Accountant.API.Processes;
 using Accountant.API.Processes.LineItem;
 using Accountant.API.Processes.SubLineItem;
+using Accountant.API.Processes.User;
 using Accountant.API.Validation.Common;
 using Accountant.API.Validation.LineItem;
 using Accountant.API.Validation.SubLineItem;
@@ -23,6 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddTransient<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>, CreateLineItemProcess>();
             services.AddTransient<IApiProcess<CreateSubLineItemRequest, CreateSubLineItemResponse>, CreateSubLineItemProcess>();
+            services.AddTransient<IApiProcess<GetUserRequest, GetUserResponse>, GetUserProcess>();
 
             services.AddTransient<IValidator<ILineItemId>, LineItemIdValidation>();
             services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
