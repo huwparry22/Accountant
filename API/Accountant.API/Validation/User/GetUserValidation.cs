@@ -1,13 +1,5 @@
-﻿using Accountant.API.Models.Requests.LineItem;
-using Accountant.API.Models.Requests.User;
+﻿using Accountant.API.Models.Requests.User;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Accountant.API.Validation.User
 {
@@ -15,10 +7,13 @@ namespace Accountant.API.Validation.User
     {
         public GetUserValidation()
         {
+            var invalidEmailAddressMessage = "Invalid email address";
+
             RuleFor(getUserRequest => getUserRequest.EmailAddress)
                 .NotEmpty()
+                .WithMessage(invalidEmailAddressMessage)
                 .EmailAddress()
-                .WithMessage("Invalid email address");
+                .WithMessage(invalidEmailAddressMessage);
         }        
     }
 }
