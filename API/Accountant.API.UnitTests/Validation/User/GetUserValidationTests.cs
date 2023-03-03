@@ -1,11 +1,6 @@
 ﻿using Accountant.API.Models.Requests.User;
 using Accountant.API.Validation.User;
 using FluentValidation.TestHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accountant.API.UnitTests.Validation.User
 {
