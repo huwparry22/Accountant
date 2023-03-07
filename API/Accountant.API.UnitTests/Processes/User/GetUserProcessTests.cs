@@ -49,6 +49,30 @@ namespace Accountant.API.UnitTests.Processes.User
                     .Setup(x => x.MapToApiResponse<GetUserResponse>(It.IsAny<ValidationResult>()))
                     .Returns(_response);
             }
+
+            [Fact]
+            public async Task CallsValidatorValidateAsync()
+            {
+                var resut = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                _mockGetUserValidation.Verify(x => x.ValidateAsync(_request, It.IsAny<CancellationToken>()), Times.Once());
+            }
+
+            [Fact]
+            public async Task CallsValidationResultMapperMapToApiResponse()
+            {
+                var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                _mockValidationResultMapper.Verify(x => x.MapToApiResponse<GetUserResponse>(_validationResult), Times.Once());
+            }
+
+            [Fact]
+            public async Task ReturnsGetUserResponse()
+            {
+                var result = await _objectToTest.Validate(_request).ConfigureAwait(false);
+
+                result.Should().Be(_response);
+            }
         }
     }
 }
