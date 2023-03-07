@@ -14,6 +14,7 @@ using Accountant.API.Processes.User;
 using Accountant.API.Validation.Common;
 using Accountant.API.Validation.LineItem;
 using Accountant.API.Validation.SubLineItem;
+using Accountant.API.Validation.User;
 using FluentValidation;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -31,6 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IValidator<ILineItemId>, LineItemIdValidation>();
             services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
             services.AddTransient<IValidator<CreateSubLineItemRequest>, CreateSubLineItemValidation>();
+            services.AddTransient<IValidator<GetUserRequest>, GetUserValidation>();
             
 
             services.AddTransient<IValidationResultMapper, ValidationResultMapper>();
