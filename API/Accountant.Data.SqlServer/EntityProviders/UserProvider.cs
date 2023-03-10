@@ -16,5 +16,13 @@ namespace Accountant.Data.SqlServer.EntityProviders
                 .SingleOrDefaultAsync(u => u.UserId == userId)
                 .ConfigureAwait(false);
         }
+
+        public async Task<User> GetByEmailAddress(string emailAddress)
+        {
+            return await _accountantContext
+                .Users
+                .SingleOrDefaultAsync(u => u.EmailAddress == emailAddress)
+                .ConfigureAwait(false);
+        }
     }
 }
