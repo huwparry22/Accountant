@@ -10,6 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddTransient<ILineItemLogic, LineItemLogic>();
             services.AddTransient<ISubLineItemLogic, SubLineItemLogic>();
+            services.AddTransient<IUserLogic, UserLogic>();
 
             services.AddTransient<ILineItemMapper, LineItemMapper>();
             services.AddTransient<ISubLineItemMapper, SubLineItemMapper>();
