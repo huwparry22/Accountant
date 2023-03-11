@@ -1,13 +1,24 @@
 ﻿using Accountant.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Accountant.Data.EntityProviders;
 
 namespace Accountant.Core.Logic
 {
     public class UserLogic : IUserLogic
     {
+        private readonly IUserProvider _userProvider;
+        private readonly IUserMapper _userMapper;
+
+        public UserLogic(IUserProvider userProvider, IUserMapper userMapper)
+        {
+            _userProvider = userProvider;
+            _userMapper = userMapper;
+        }
+
+        public async Task<API.Models.User> GetUserByEmailAddress(string emailAddress)
+        {
+            var user = await _userProvider.GetByEmailAddress(emailAddress).ConfigureAwait(false);
+
+            return _userMapper.MapToModelUser(user);
+        }
     }
 }
