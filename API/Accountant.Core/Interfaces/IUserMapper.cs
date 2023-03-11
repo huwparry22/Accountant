@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Accountant.Core.Interfaces
+﻿namespace Accountant.Core.Interfaces
 {
-    internal interface IUserMapper
+    public interface IUserMapper
     {
+        API.Models.User MapToModelUser(Data.Entities.User user);
     }
 }
