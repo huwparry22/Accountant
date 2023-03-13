@@ -2,6 +2,7 @@
 using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.Models.Responses.User;
+using Accountant.Core.Interfaces;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace Accountant.API.Processes.User
     {
         private readonly IValidator<GetUserRequest> _validator;
         private readonly IValidationResultMapper _validationResultMapper;
+        private readonly IUserLogic _userLogic;
 
-        public GetUserProcess(IValidator<GetUserRequest> validator, IValidationResultMapper validationResultMapper)
+        public GetUserProcess(IValidator<GetUserRequest> validator, IValidationResultMapper validationResultMapper, IUserLogic userLogic)
         {
             _validator = validator;
             _validationResultMapper = validationResultMapper;
+            _userLogic = userLogic;
         }
 
         public async Task<GetUserResponse> Validate(GetUserRequest request)

@@ -2,6 +2,7 @@
 using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.User;
 using Accountant.API.Processes.User;
+using Accountant.Core.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
@@ -17,6 +18,7 @@ namespace Accountant.API.UnitTests.Processes.User
     {
         private readonly Mock<IValidator<GetUserRequest>> _mockGetUserValidation;
         private readonly Mock<IValidationResultMapper> _mockValidationResultMapper;
+        private readonly Mock<IUserLogic> _mockUserLogic;
 
         private readonly GetUserProcess _objectToTest;
 
@@ -24,8 +26,9 @@ namespace Accountant.API.UnitTests.Processes.User
         {
             _mockGetUserValidation = new Mock<IValidator<GetUserRequest>>();
             _mockValidationResultMapper = new Mock<IValidationResultMapper>();
+            _mockUserLogic = new Mock<IUserLogic>();
 
-            _objectToTest = new GetUserProcess(_mockGetUserValidation.Object, _mockValidationResultMapper.Object);
+            _objectToTest = new GetUserProcess(_mockGetUserValidation.Object, _mockValidationResultMapper.Object, _mockUserLogic.Object);
         }
 
         public class ValidateTests : GetUserProcessTests
