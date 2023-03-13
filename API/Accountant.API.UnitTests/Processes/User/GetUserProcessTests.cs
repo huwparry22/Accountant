@@ -77,5 +77,47 @@ namespace Accountant.API.UnitTests.Processes.User
                 result.Should().Be(_response);
             }
         }
+
+        public class ExecuteTests : GetUserProcessTests
+        {
+            private readonly GetUserRequest _request;
+            private readonly Models.User _userModel;
+
+            public ExecuteTests() : base()
+            {
+                _request = new GetUserRequest
+                {
+                    EmailAddress = "test@test.com"
+                };
+
+                _userModel = new Models.User
+                {
+                    UserId = 99,
+                    EmailAddress = "test@test.com"
+                };
+
+                _mockUserLogic
+                    .Setup(x => x.GetUserByEmailAddress(It.IsAny<string>()))
+                    .ReturnsAsync(_userModel);
+            }
+
+            [Fact]
+            public async Task CallsUserLogicGetUserByEmailAddress()
+            {
+                await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+                _mockUserLogic.Verify(x => x.GetUserByEmailAddress(_request.EmailAddress), Times.Once());
+            }
+
+            [Fact]
+            public async Task ReturnsUserModelOnResponse()
+            {
+                var actual = await _objectToTest.Execute(_request).ConfigureAwait(false);
+
+
+                Assert.True(actual.Success);
+                actual.User.Should().Be(_userModel);
+            }
+        }
     }
 }
