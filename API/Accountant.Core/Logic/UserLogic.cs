@@ -16,7 +16,7 @@ namespace Accountant.Core.Logic
 
         public async Task<API.Models.User> GetUserByEmailAddress(string emailAddress)
         {
-            var user = await _userProvider.GetByEmailAddress(emailAddress).ConfigureAwait(false);
+            var user = await _userProvider.GetByEmailAddressAsync(emailAddress).ConfigureAwait(false);
 
             return _userMapper.MapToModelUser(user);
         }

@@ -17,7 +17,7 @@ namespace Accountant.Data.SqlServer.EntityProviders
                 .ConfigureAwait(false);
         }
 
-        public async Task<User> GetByEmailAddress(string emailAddress)
+        public async Task<User> GetByEmailAddressAsync(string emailAddress)
         {
             return await _accountantContext
                 .Users

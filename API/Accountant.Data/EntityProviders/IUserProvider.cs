@@ -6,6 +6,6 @@ namespace Accountant.Data.EntityProviders
     {
         Task<User> GetByUserIdAsync(int userId);
 
-        Task<User> GetByEmailAddress(string emailAddress);
+        Task<User> GetByEmailAddressAsync(string emailAddress);
     }
 }

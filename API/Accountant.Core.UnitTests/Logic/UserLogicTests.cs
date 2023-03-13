@@ -37,7 +37,7 @@ namespace Accountant.Core.UnitTests.Logic
                 _userModel = new API.Models.User();
 
                 _mockUserProvider
-                    .Setup(x => x.GetByEmailAddress(It.IsAny<string>()))
+                    .Setup(x => x.GetByEmailAddressAsync(It.IsAny<string>()))
                     .ReturnsAsync(_userEntity);
 
                 _mockUserMapper
@@ -50,7 +50,7 @@ namespace Accountant.Core.UnitTests.Logic
             {
                 await _objectToTest.GetUserByEmailAddress(_emailAddress).ConfigureAwait(false);
 
-                _mockUserProvider.Verify(x => x.GetByEmailAddress(_emailAddress), Times.Once());
+                _mockUserProvider.Verify(x => x.GetByEmailAddressAsync(_emailAddress), Times.Once());
             }
 
 
