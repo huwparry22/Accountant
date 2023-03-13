@@ -32,9 +32,15 @@ namespace Accountant.API.Processes.User
             return _validationResultMapper.MapToApiResponse<GetUserResponse>(validationResult);
         }
 
-        public Task<GetUserResponse> Execute(GetUserRequest request)
+        public async Task<GetUserResponse> Execute(GetUserRequest request)
         {
-            throw new NotImplementedException();
+            var userModel = await _userLogic.GetUserByEmailAddress(request.EmailAddress).ConfigureAwait(false);
+
+            return new GetUserResponse
+            {
+                Success = true,
+                User = userModel
+            };
         }
     }
 }
