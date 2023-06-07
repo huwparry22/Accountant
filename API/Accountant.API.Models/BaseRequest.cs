@@ -5,6 +5,6 @@ namespace Accountant.API.Models
     public class BaseRequest
     {
         [JsonIgnore]
-        public User AuthenticatedUser { get; set; }
+        public User? AuthenticatedUser { get; set; }
     }
 }
