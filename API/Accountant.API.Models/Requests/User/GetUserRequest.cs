@@ -6,6 +6,6 @@ namespace Accountant.API.Models.Requests.User
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Email address required")]
         [EmailAddress]
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; } = string.Empty;
     }
 }
