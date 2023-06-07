@@ -25,9 +25,9 @@ namespace Accountant.API.Validation.Common
 
         private async Task<bool> ValidLineItemId(int? lineItemId)
         {
-            var lineItem = await _lineItemLogic.GetLineItemByLineItemId(lineItemId.Value).ConfigureAwait(false);
+            var lineItem = await _lineItemLogic.GetLineItemByLineItemId(lineItemId.GetValueOrDefault()).ConfigureAwait(false);
 
-            return lineItem != null && lineItem.LineItemId == lineItemId.Value;
+            return lineItem != null && lineItem.LineItemId == lineItemId.GetValueOrDefault();
         }
     }
 }
