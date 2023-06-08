@@ -1,5 +1,6 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
+using Accountant.API.WebAPI.Interfaces;
 
 namespace Accountant.API.WebAPI.UnitTests.Logic
 {
@@ -7,13 +8,15 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
     {
         private readonly ApiLogic _objectToTest;
 
+        private readonly Mock<IAuthenticateUserLogic> _mockAuthenticateUserLogic;
         private readonly Mock<IApiProcessFactory> _mockApiProcessFactory;
 
         public ApiLogicTests()
         {
+            _mockAuthenticateUserLogic = new Mock<IAuthenticateUserLogic>();
             _mockApiProcessFactory = new Mock<IApiProcessFactory>();
 
-            _objectToTest = new ApiLogic(_mockApiProcessFactory.Object);
+            _objectToTest = new ApiLogic(_mockAuthenticateUserLogic.Object, _mockApiProcessFactory.Object);
         }
 
         public class RunApiProcessTests : ApiLogicTests
