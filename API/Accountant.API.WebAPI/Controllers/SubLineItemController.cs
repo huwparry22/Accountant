@@ -20,7 +20,7 @@ namespace Accountant.API.WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<CreateSubLineItemResponse>> Create(CreateSubLineItemRequest createSubLineItemRequest)
         {
-            return await _apiLogic.RunApiProcess<CreateSubLineItemRequest, CreateSubLineItemResponse>(createSubLineItemRequest).ConfigureAwait(false);
+            return await _apiLogic.AuthenticateAndRunApiProcess<CreateSubLineItemRequest, CreateSubLineItemResponse>(createSubLineItemRequest).ConfigureAwait(false);
         }
     }
 }

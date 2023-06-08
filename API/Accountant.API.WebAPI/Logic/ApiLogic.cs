@@ -16,11 +16,11 @@ namespace Accountant.API.WebAPI.Logic
             _authenticateUserLogic = authenticateUserLogic;
         }
 
-        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
+        public async Task<TResponse> AuthenticateAndRunApiProcess<TRequest, TResponse>(TRequest request)
             where TRequest : BaseRequest
             where TResponse : BaseResponse
         {
-            request.AuthenticatedUser = _authenticateUserLogic.GetAuthenticatedUser(User);
+            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(User).ConfigureAwait(false);
 
             var apiProcess = _apiProcessFactory.GetApiProcess<TRequest, TResponse>();
 
@@ -33,5 +33,23 @@ namespace Accountant.API.WebAPI.Logic
 
             return await apiProcess.Execute(request).ConfigureAwait(false);
         }
+
+        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
+            where TRequest : BaseRequest
+            where TResponse : BaseResponse
+        {
+            var apiProcess = _apiProcessFactory.GetApiProcess<TRequest, TResponse>();
+
+            var validateResponse = await apiProcess.Validate(request).ConfigureAwait(false);
+
+            if (!validateResponse.Success)
+            {
+                return validateResponse;
+            }
+
+            return await apiProcess.Execute(request).ConfigureAwait(false);
+        }
+
+
     }
 }

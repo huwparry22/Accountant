@@ -5,6 +5,6 @@ namespace Accountant.API.WebAPI.Interfaces
 {
     public interface IAuthenticateUserLogic
     {
-        User GetAuthenticatedUser(ClaimsPrincipal user);
+        Task<User> GetAuthenticatedUser(ClaimsPrincipal user);
     }
 }

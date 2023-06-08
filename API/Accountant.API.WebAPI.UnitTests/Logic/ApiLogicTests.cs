@@ -53,7 +53,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task CallsApiProcessFactoryGetApiProcess()
             {
-                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
             }
@@ -61,7 +61,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task CallsApiProcessValidate()
             {
-                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
             }
@@ -69,7 +69,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task CallsApiProcessExecute()
             {
-                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
             }
@@ -77,7 +77,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task ReturnsSuccessResponseOnExecute()
             {
-                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                var actual = await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
                 actual.Should().Be(_successResponse);
@@ -103,7 +103,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             {
                 var exepected = SetupValidateFailure();
 
-                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                var actual = await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
@@ -132,7 +132,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             {
                 var expected = SetupExecuteFaillure();
 
-                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                var actual = await _objectToTest.AuthenticateAndRunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
