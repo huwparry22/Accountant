@@ -14,28 +14,20 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
         private readonly Mock<IAuthenticateUserLogic> _mockAuthenticateUserLogic;
         private readonly Mock<IApiProcessLogic> _mockApiProcessLogic;
 
-        private readonly ClaimsPrincipal _claimsPrincipal;
+        
 
         public ApiLogicTests()
         {
             _mockAuthenticateUserLogic = new Mock<IAuthenticateUserLogic>();
             _mockApiProcessLogic = new Mock<IApiProcessLogic>();
 
-            _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
-            {
-                new Claim(ClaimTypes.Email, "test@test.com")
-            }, "mock"));
-
             _objectToTest = new ApiLogic(_mockAuthenticateUserLogic.Object, _mockApiProcessLogic.Object);
-            _objectToTest.ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext()
-            {
-                HttpContext = new DefaultHttpContext() { User = _claimsPrincipal }
-            };
         }
 
         public class RunApiProcessTests : ApiLogicTests
         {
             private readonly CreateLineItemRequest _createLineItemRequest;
+            private readonly ClaimsPrincipal _claimsPrincipal;
 
             private readonly User? _authenticatedUser;
             private readonly CreateLineItemResponse _createLineItemResponse;
@@ -43,6 +35,11 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             public RunApiProcessTests() : base()
             {
                 _createLineItemRequest = new CreateLineItemRequest();
+
+                _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Email, "test@test.com")
+                }, "mock"));
 
                 _authenticatedUser = new User
                 {
@@ -68,7 +65,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task CallsAuthenticateUserLogicGetAuthenticatedUser()
             {
-                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest, _claimsPrincipal).ConfigureAwait(false);
 
                 _mockAuthenticateUserLogic.Verify(x => x.GetAuthenticatedUser(_claimsPrincipal), Times.Once);
 
@@ -78,7 +75,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             [Fact]
             public async Task CallsApiProcessLogicRunApiProcess()
             {
-                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest, _claimsPrincipal).ConfigureAwait(false);
 
                 _mockApiProcessLogic.Verify(x => x.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest), Times.Once);
             }

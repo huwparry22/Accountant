@@ -1,10 +1,11 @@
 ﻿using Accountant.API.Models;
 using Accountant.API.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Accountant.API.WebAPI.Logic
 {
-    public class ApiLogic : ControllerBase, IApiLogic
+    public class ApiLogic : IApiLogic
     {
         private readonly IAuthenticateUserLogic _authenticateUserLogic;
         private readonly IApiProcessLogic _apiProcessLogic;
@@ -15,11 +16,11 @@ namespace Accountant.API.WebAPI.Logic
             _apiProcessLogic = apiProcessLogic;
         }
 
-        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
+        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request, ClaimsPrincipal user)
             where TRequest : BaseRequest
             where TResponse : BaseResponse
         {
-            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(User).ConfigureAwait(false);
+            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(user).ConfigureAwait(false);
 
             return await _apiProcessLogic.RunApiProcess<TRequest, TResponse>(request).ConfigureAwait(false);
         }
