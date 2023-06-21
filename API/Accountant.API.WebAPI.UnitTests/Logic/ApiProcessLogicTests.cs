@@ -26,7 +26,6 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
             private readonly CreateLineItemRequest _createLineItemRequest;
 
             private Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>> _mockCreateLineItemApiProcess;
-            private CreateLineItemResponse _createLineItemValidationResponse;
 
             public RunApiProcessTests() : base()
             {
@@ -36,6 +35,9 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 };
 
                 _mockCreateLineItemApiProcess = new Mock<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>>();
+                _mockApiProcessFactory
+                    .Setup(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>())
+                    .Returns(_mockCreateLineItemApiProcess.Object);
             }
 
             private CreateLineItemResponse SetUpValidateResponse(bool success)
@@ -67,6 +69,17 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                     .ReturnsAsync(executeResponse);
 
                 return executeResponse;
+            }
+
+            [Fact]
+            public async Task CallsApiProcessFactoryGetApiProcess()
+            {
+                SetUpValidateResponse(true);
+                SetUpExecuteResponse(true);
+
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
             }
         }
     }
