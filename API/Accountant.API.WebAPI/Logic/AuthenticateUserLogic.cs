@@ -1,5 +1,4 @@
-﻿using Accountant.API.Interfaces;
-using Accountant.API.Models;
+﻿using Accountant.API.Models;
 using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.User;
 using Accountant.API.WebAPI.Interfaces;
