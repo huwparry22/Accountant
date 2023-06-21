@@ -2,6 +2,7 @@
 using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.WebAPI.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace Accountant.API.WebAPI.UnitTests.Logic
@@ -13,12 +14,23 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
         private readonly Mock<IAuthenticateUserLogic> _mockAuthenticateUserLogic;
         private readonly Mock<IApiProcessLogic> _mockApiProcessLogic;
 
+        private readonly ClaimsPrincipal _claimsPrincipal;
+
         public ApiLogicTests()
         {
             _mockAuthenticateUserLogic = new Mock<IAuthenticateUserLogic>();
             _mockApiProcessLogic = new Mock<IApiProcessLogic>();
 
+            _claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Email, "test@test.com")
+            }, "mock"));
+
             _objectToTest = new ApiLogic(_mockAuthenticateUserLogic.Object, _mockApiProcessLogic.Object);
+            _objectToTest.ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = _claimsPrincipal }
+            };
         }
 
         public class RunApiProcessTests : ApiLogicTests
@@ -53,7 +65,13 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                     .ReturnsAsync(_createLineItemResponse);
             }
 
-            
+            [Fact]
+            public async Task CallsAuthenticateUserLogicGetAuthenticatedUser()
+            {
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockAuthenticateUserLogic.Verify(x => x.GetAuthenticatedUser(_claimsPrincipal), Times.Once);
+            }
         }
     }
 }
