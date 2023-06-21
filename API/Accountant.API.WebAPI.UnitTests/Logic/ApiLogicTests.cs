@@ -74,6 +74,14 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 _createLineItemRequest.AuthenticatedUser.Should().Be(_authenticatedUser);
             }
+
+            [Fact]
+            public async Task CallsApiProcessLogicRunApiProcess()
+            {
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessLogic.Verify(x => x.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest), Times.Once);
+            }
         }
     }
 }
