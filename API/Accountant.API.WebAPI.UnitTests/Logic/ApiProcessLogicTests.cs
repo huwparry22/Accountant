@@ -65,7 +65,7 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 };
 
                 _mockCreateLineItemApiProcess
-                    .Setup(x => x.Validate(It.IsAny<CreateLineItemRequest>()))
+                    .Setup(x => x.Execute(It.IsAny<CreateLineItemRequest>()))
                     .ReturnsAsync(executeResponse);
 
                 return executeResponse;
@@ -102,6 +102,17 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
                 await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
+            }
+
+            [Fact]
+            public async Task ReturnsSuccessResponseOnExecute()
+            {
+                SetUpValidateResponse(true);
+                var expected = SetUpExecuteResponse(true);
+
+                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                actual.Should().Be(expected);
             }
         }
     }
