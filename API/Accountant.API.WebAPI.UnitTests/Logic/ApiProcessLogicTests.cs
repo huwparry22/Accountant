@@ -92,6 +92,17 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
             }
+
+            [Fact]
+            public async Task CallsApiProcessExecute()
+            {
+                SetUpValidateResponse(true);
+                SetUpExecuteResponse(true);
+
+                await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockCreateLineItemApiProcess.Verify(x => x.Execute(_createLineItemRequest), Times.Once);
+            }
         }
     }
 }
