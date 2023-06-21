@@ -128,6 +128,21 @@ namespace Accountant.API.WebAPI.UnitTests.Logic
 
                 actual.Should().Be(expected);
             }
+
+            [Fact]
+            public async Task ExecuteFailureTests()
+            {
+                SetUpValidateResponse(true);
+                var expected = SetUpExecuteResponse(false);
+
+                var actual = await _objectToTest.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(_createLineItemRequest).ConfigureAwait(false);
+
+                _mockApiProcessFactory.Verify(x => x.GetApiProcess<CreateLineItemRequest, CreateLineItemResponse>(), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Validate(_createLineItemRequest), Times.Once);
+                _mockCreateLineItemApiProcess.Verify(x => x.Execute(It.IsAny<CreateLineItemRequest>()), Times.Once);
+
+                actual.Should().Be(expected);
+            }
         }
     }
 }
