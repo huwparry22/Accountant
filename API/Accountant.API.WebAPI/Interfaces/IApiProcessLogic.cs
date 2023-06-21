@@ -2,7 +2,7 @@
 
 namespace Accountant.API.WebAPI.Interfaces
 {
-    public interface IApiLogic
+    public interface IApiProcessLogic
     {
         Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
             where TRequest : BaseRequest

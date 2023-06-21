@@ -9,11 +9,11 @@ namespace Accountant.API.WebAPI.Logic
 {
     public class AuthenticateUserLogic : IAuthenticateUserLogic
     {
-        private IApiLogic _apiLogic;
+        private IApiProcessLogic _apiProcessLogic;
 
-        public AuthenticateUserLogic(IApiLogic apiLogic)
+        public AuthenticateUserLogic(IApiProcessLogic apiProcessLogic)
         {
-            _apiLogic = apiLogic;
+            _apiProcessLogic = apiProcessLogic;
         }
 
         public async Task<User> GetAuthenticatedUser(ClaimsPrincipal user)
@@ -23,7 +23,7 @@ namespace Accountant.API.WebAPI.Logic
                 EmailAddress = ""   //user.
             };
 
-            var getUserResponse = await _apiLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
+            var getUserResponse = await _apiProcessLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
 
             return null;
         }

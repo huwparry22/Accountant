@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddTransient<IApiLogic, ApiLogic>();
             services.AddTransient<IAuthenticateUserLogic, AuthenticateUserLogic>();
+            services.AddTransient<IApiProcessLogic, ApiProcessLogic>();
         }
     }
 }
