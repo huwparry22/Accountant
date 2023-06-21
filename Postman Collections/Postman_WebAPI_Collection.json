@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "1b29c7f2-9e77-46f2-a1f2-fefea0146db3",
+		"name": "Accountant_DEV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateLineItem",
+			"_postman_id": "48e2be13-c4f3-483f-ba76-a9d24ae3cc9a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"testing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{apiUrl}}api/LineItem"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": {
+			"scope": "https://AccountantDevB2C.onmicrosoft.com/15f9dbfb-7965-446c-9bea-13a9ada6515f/All",
+			"clientSecret": "",
+			"clientId": "3be48013-6b41-4dfe-b588-b1a05229f8f1",
+			"accessTokenUrl": "https://AccountantDevB2C.b2clogin.com/AccountantDevB2C.onmicrosoft.com/B2C_1_susi/oauth2/v2.0/token",
+			"authUrl": "https://AccountantDevB2C.b2clogin.com/AccountantDevB2C.onmicrosoft.com/B2C_1_susi/oauth2/v2.0/authorize",
+			"grant_type": "authorization_code_with_pkce",
+			"useBrowser": true,
+			"tokenName": "b2cBearerToken",
+			"addTokenTo": "header"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "255ff6f1-0b3d-44bc-a575-2418c409e0d6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "68ffe621-fe3a-4b4a-bb51-a1e4e70d3515",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e0744efa-a1e2-4745-91e6-5bb4d17e9d95",
+			"key": "apiUrl",
+			"value": "https://localhost:7012/",
+			"type": "string"
+		}
+	]
+}
