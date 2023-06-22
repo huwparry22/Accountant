@@ -1,6 +1,5 @@
 ﻿using Accountant.Core.Mappers;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace Accountant.Core.UnitTests.Mappers
@@ -18,26 +17,17 @@ namespace Accountant.Core.UnitTests.Mappers
         [ClassData(typeof(UserMapperMapToModelUserTestData))]
         public void MapToModelUser(Data.Entities.User parameter, API.Models.User expected)
         {
-            if (parameter == null)
-            {
-                _objectToTest.Invoking(o => o.MapToModelUser(parameter))
-                    .Should()
-                    .ThrowExactly<ArgumentNullException>();
-            }
-            else
-            {
-                var actual = _objectToTest.MapToModelUser(parameter);
+            var actual = _objectToTest.MapToModelUser(parameter);
 
-                actual.Should().BeEquivalentTo(expected);
-            }
+            actual.Should().BeEquivalentTo(expected);
         }
 
 
-        public class UserMapperMapToModelUserTestData : TheoryData<Data.Entities.User, API.Models.User>
+        public class UserMapperMapToModelUserTestData : TheoryData<Data.Entities.User, API.Models.User?>
         {
             public UserMapperMapToModelUserTestData()
             {
-                Add(null, null);
+                Add(null, default);
 
                 Add(
                     new Data.Entities.User

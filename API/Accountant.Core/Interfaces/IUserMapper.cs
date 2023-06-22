@@ -2,6 +2,6 @@
 {
     public interface IUserMapper
     {
-        API.Models.User MapToModelUser(Data.Entities.User user);
+        API.Models.User? MapToModelUser(Data.Entities.User user);
     }
 }
