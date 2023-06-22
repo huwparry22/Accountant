@@ -1,4 +1,5 @@
-﻿using Accountant.Core.Mappers;
+﻿using Accountant.API.Models.Requests.User;
+using Accountant.Core.Mappers;
 using FluentAssertions;
 using Xunit;
 
@@ -13,33 +14,68 @@ namespace Accountant.Core.UnitTests.Mappers
             _objectToTest = new UserMapper();
         }
 
-        [Theory]
-        [ClassData(typeof(UserMapperMapToModelUserTestData))]
-        public void MapToModelUser(Data.Entities.User parameter, API.Models.User expected)
+        public class MapToModelUserTests : UserMapperTests
         {
-            var actual = _objectToTest.MapToModelUser(parameter);
+            [Theory]
+            [ClassData(typeof(UserMapperMapToModelUserTestData))]
+            public void MapToModelUser(Data.Entities.User parameter, API.Models.User expected)
+            {
+                var actual = _objectToTest.MapToModelUser(parameter);
 
-            actual.Should().BeEquivalentTo(expected);
+                actual.Should().BeEquivalentTo(expected);
+            }
+
+
+            public class UserMapperMapToModelUserTestData : TheoryData<Data.Entities.User, API.Models.User?>
+            {
+                public UserMapperMapToModelUserTestData()
+                {
+                    Add(null, default);
+
+                    Add(
+                        new Data.Entities.User
+                        {
+                            UserId = 99,
+                            EmailAddress = "test@test.com"
+                        },
+                        new API.Models.User
+                        {
+                            UserId = 99,
+                            EmailAddress = "test@test.com"
+                        });
+                }
+            }
         }
 
-
-        public class UserMapperMapToModelUserTestData : TheoryData<Data.Entities.User, API.Models.User?>
+        public class MapToEntityUserTests : UserMapperTests
         {
-            public UserMapperMapToModelUserTestData()
+            [Theory]
+            [ClassData(typeof(MapToEntityUserTestData))]
+            public void MapToEntityUser(CreateUserRequest parameter, Data.Entities.User expected)
             {
-                Add(null, default);
+                var actual = _objectToTest.MapToEntityUser(parameter);
 
-                Add(
-                    new Data.Entities.User
-                    {
-                        UserId = 99,
-                        EmailAddress = "test@test.com"
-                    },
-                    new API.Models.User
-                    {
-                        UserId = 99,
-                        EmailAddress = "test@test.com"
-                    });
+                actual.Should().BeEquivalentTo(expected);
+            }
+
+            public class MapToEntityUserTestData : TheoryData<CreateUserRequest, Data.Entities.User>
+            {
+                public MapToEntityUserTestData()
+                {
+                    Add(
+                        new CreateUserRequest
+                        {
+                            EmailAddress = "test@test.com",
+                            FirstName = "testFirstName",
+                            LastName = "testLastName"
+                        },
+                        new Data.Entities.User
+                        {
+                            EmailAddress = "test@test.com",
+                            FirstName = "testFirstName",
+                            LastName = "testLastName"
+                        });
+                }
             }
         }
     }

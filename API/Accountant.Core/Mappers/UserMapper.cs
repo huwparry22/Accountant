@@ -1,4 +1,6 @@
-﻿using Accountant.Core.Interfaces;
+﻿using Accountant.API.Models.Requests.User;
+using Accountant.Core.Interfaces;
+using Accountant.Data.Entities;
 
 namespace Accountant.Core.Mappers
 {
@@ -13,6 +15,16 @@ namespace Accountant.Core.Mappers
             {
                 UserId = user.UserId,
                 EmailAddress = user.EmailAddress
+            };
+        }
+
+        public User MapToEntityUser(CreateUserRequest createUserRequest)
+        {
+            return new User
+            {
+                EmailAddress = createUserRequest.EmailAddress,
+                FirstName = createUserRequest.FirstName,
+                LastName = createUserRequest.LastName
             };
         }
     }
