@@ -28,12 +28,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IApiProcess<CreateLineItemRequest, CreateLineItemResponse>, CreateLineItemProcess>();
             services.AddTransient<IApiProcess<CreateSubLineItemRequest, CreateSubLineItemResponse>, CreateSubLineItemProcess>();
             services.AddTransient<IApiProcess<GetUserRequest, GetUserResponse>, GetUserProcess>();
+            services.AddTransient<IApiProcess<CreateUserRequest, CreateUserResponse>, CreateUserProcess>();
 
             services.AddTransient<IValidator<ILineItemId>, LineItemIdValidation>();
             services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
             services.AddTransient<IValidator<CreateSubLineItemRequest>, CreateSubLineItemValidation>();
             services.AddTransient<IValidator<GetUserRequest>, GetUserValidation>();
-            
 
             services.AddTransient<IValidationResultMapper, ValidationResultMapper>();
         }
