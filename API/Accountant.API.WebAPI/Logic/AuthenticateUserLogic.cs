@@ -19,7 +19,7 @@ namespace Accountant.API.WebAPI.Logic
         {
             var getUserRequest = new GetUserRequest
             {
-                EmailAddress = ""   //user.
+                EmailAddress = user.FindFirstValue("Emails")
             };
 
             var getUserResponse = await _apiProcessLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
