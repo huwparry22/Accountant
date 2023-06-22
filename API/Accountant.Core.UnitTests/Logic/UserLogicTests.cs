@@ -1,4 +1,5 @@
-﻿using Accountant.Core.Interfaces;
+﻿using Accountant.API.Models.Requests.User;
+using Accountant.Core.Interfaces;
 using Accountant.Core.Logic;
 using Accountant.Data.EntityProviders;
 using FluentAssertions;
@@ -68,6 +69,53 @@ namespace Accountant.Core.UnitTests.Logic
                 var actual = await _objectToTest.GetUserByEmailAddress(_emailAddress).ConfigureAwait(false);
 
                 actual.Should().Be(_userModel);
+            }
+        }
+
+        public class SaveUserTests : UserLogicTests
+        {
+            private readonly CreateUserRequest _createUserRequest;
+
+            private readonly Data.Entities.User _userEntity;
+            private readonly Data.Entities.User _saveUserEntity;
+
+            public SaveUserTests() : base()
+            {
+                _createUserRequest = new CreateUserRequest();
+                _userEntity = new Data.Entities.User();
+                _saveUserEntity = new Data.Entities.User();
+
+                _mockUserMapper
+                    .Setup(x => x.MapToEntityUser(It.IsAny<CreateUserRequest>()))
+                    .Returns(_userEntity);
+
+                _mockUserProvider
+                    .Setup(x => x.SaveAsync(It.IsAny<Data.Entities.User>()))
+                    .ReturnsAsync(_saveUserEntity);
+            }
+
+            [Fact]
+            public async Task CallsUserMapperMapToEntityUser()
+            {
+                await _objectToTest.SaveUser(_createUserRequest).ConfigureAwait(false);
+
+                _mockUserMapper.Verify(x => x.MapToEntityUser(_createUserRequest), Times.Once());
+            }
+
+            [Fact]
+            public async Task CallsUserProviderSaveAsync()
+            {
+                await _objectToTest.SaveUser(_createUserRequest).ConfigureAwait(false);
+
+                _mockUserProvider.Verify(x => x.SaveAsync(_userEntity), Times.Once());
+            }
+
+            [Fact]
+            public async Task ReturnsSavedUserEntity()
+            {
+                var actual = await _objectToTest.SaveUser(_createUserRequest).ConfigureAwait(false);
+
+                actual.Should().Be(_saveUserEntity);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using Accountant.Core.Interfaces;
+﻿using Accountant.API.Models.Requests.User;
+using Accountant.Core.Interfaces;
 using Accountant.Data.EntityProviders;
 
 namespace Accountant.Core.Logic
@@ -19,6 +20,13 @@ namespace Accountant.Core.Logic
             var user = await _userProvider.GetByEmailAddressAsync(emailAddress).ConfigureAwait(false);
 
             return _userMapper.MapToModelUser(user);
+        }
+
+        public async Task<Data.Entities.User> SaveUser(CreateUserRequest createUserRequest)
+        {
+            var user = _userMapper.MapToEntityUser(createUserRequest);
+
+            return await _userProvider.SaveAsync(user).ConfigureAwait(false);
         }
     }
 }
