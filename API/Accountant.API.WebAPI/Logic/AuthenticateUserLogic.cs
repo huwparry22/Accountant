@@ -24,7 +24,15 @@ namespace Accountant.API.WebAPI.Logic
 
             var getUserResponse = await _apiProcessLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
 
-            return null;
+            if (getUserResponse.User != null)
+            {
+                return getUserResponse.User;
+            }
+            else
+            {
+                //Create User
+                return null;
+            }
         }
     }
 }
