@@ -34,6 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IValidator<CreateLineItemRequest>, CreateLineItemValidation>();
             services.AddTransient<IValidator<CreateSubLineItemRequest>, CreateSubLineItemValidation>();
             services.AddTransient<IValidator<GetUserRequest>, GetUserValidation>();
+            services.AddTransient<IValidator<CreateUserRequest>, CreateUserValidation>();
 
             services.AddTransient<IValidationResultMapper, ValidationResultMapper>();
         }
