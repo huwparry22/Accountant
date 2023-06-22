@@ -5,22 +5,22 @@ using System.Security.Claims;
 
 namespace Accountant.API.WebAPI.Logic
 {
-    public class ApiLogic : IApiLogic
+    public class ApiLogic : ControllerBase
     {
-        private readonly IAuthenticateUserLogic _authenticateUserLogic;
-        private readonly IApiProcessLogic _apiProcessLogic;
-        
-        public ApiLogic(IAuthenticateUserLogic authenticateUserLogic, IApiProcessLogic apiProcessLogic)
+        private IAuthenticateUserLogic _authenticateUserLogic;
+        private IApiProcessLogic _apiProcessLogic;
+
+        public ApiLogic(IApiLogicAggregator apiLogicAggregator)
         {
-            _authenticateUserLogic = authenticateUserLogic;
-            _apiProcessLogic = apiProcessLogic;
+            _authenticateUserLogic = apiLogicAggregator.AuthenticateUserLogic;
+            _apiProcessLogic = apiLogicAggregator.ApiProcessLogic;
         }
 
-        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request, ClaimsPrincipal user)
+        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
             where TRequest : BaseRequest
             where TResponse : BaseResponse
         {
-            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(user).ConfigureAwait(false);
+            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(User).ConfigureAwait(false);
 
             return await _apiProcessLogic.RunApiProcess<TRequest, TResponse>(request).ConfigureAwait(false);
         }

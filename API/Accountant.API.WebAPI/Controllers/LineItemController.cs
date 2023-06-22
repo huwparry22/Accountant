@@ -1,6 +1,7 @@
 ﻿using Accountant.API.Models.Requests.LineItem;
 using Accountant.API.Models.Responses.LineItem;
 using Accountant.API.WebAPI.Interfaces;
+using Accountant.API.WebAPI.Logic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +10,15 @@ namespace Accountant.API.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class LineItemController : ControllerBase
+    public class LineItemController : ApiLogic
     {
-        private readonly IApiLogic _apiLogic;
-
-        public LineItemController(IApiLogic apiLogic)
-        {
-            _apiLogic = apiLogic;
-        }
+        public LineItemController(IApiLogicAggregator apiLogicAggregator) : base(apiLogicAggregator) { }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<CreateLineItemResponse>> Create(CreateLineItemRequest createLineItemRequest)
         {
-            return await _apiLogic.RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(createLineItemRequest, User).ConfigureAwait(false);
+            return await RunApiProcess<CreateLineItemRequest, CreateLineItemResponse>(createLineItemRequest).ConfigureAwait(false);
         }
     }
 }

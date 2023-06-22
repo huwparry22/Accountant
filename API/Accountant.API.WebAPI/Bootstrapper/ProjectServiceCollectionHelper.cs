@@ -1,4 +1,5 @@
-﻿using Accountant.API.WebAPI.Interfaces;
+﻿using Accountant.API.WebAPI.Aggregators;
+using Accountant.API.WebAPI.Interfaces;
 using Accountant.API.WebAPI.Logic;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -7,7 +8,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddWebApiProjectServices(this IServiceCollection services)
         {
-            services.AddTransient<IApiLogic, ApiLogic>();
+            services.AddTransient<IApiLogicAggregator, ApiLogicAggregator>();
+
             services.AddTransient<IAuthenticateUserLogic, AuthenticateUserLogic>();
             services.AddTransient<IApiProcessLogic, ApiProcessLogic>();
         }
