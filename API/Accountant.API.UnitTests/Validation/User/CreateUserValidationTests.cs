@@ -1,10 +1,6 @@
 ﻿using Accountant.API.Models.Requests.User;
 using Accountant.API.Validation.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FluentValidation.TestHelper;
 
 namespace Accountant.API.UnitTests.Validation.User
 {
@@ -17,11 +13,80 @@ namespace Accountant.API.UnitTests.Validation.User
             _objectToTest = new CreateUserValidation();
         }
 
-        public class CreateUserValidationTestData : TheoryData<CreateUserRequest>
+        [Theory]
+        [ClassData(typeof(CreateUserValidationTestData))]
+        public void ValidationTests<TProperty>(CreateUserRequest createUserRequest, bool isValid, string errorValidationPropertyName, string errorMessage)
+        {
+            var actual = _objectToTest.TestValidate(createUserRequest);
+
+            actual.IsValid.Should().Be(isValid);
+
+            if (!isValid)
+            {
+                actual
+                    .ShouldHaveValidationErrorFor(errorValidationPropertyName)
+                    .WithErrorMessage(errorMessage);
+            }
+        }
+
+        public class CreateUserValidationTestData : TheoryData<CreateUserRequest, bool, string, string>
         {
             public CreateUserValidationTestData()
             {
+                Add(
+                    new CreateUserRequest
+                    {
+                        EmailAddress = "test@test.com",
+                        FirstName = "testFirstName",
+                        LastName = "testLastName"
+                    },
+                    true,
+                    string.Empty,
+                    string.Empty
+                  );
 
+                Add(
+                    new CreateUserRequest
+                    {
+                        EmailAddress = string.Empty
+                    },
+                    false,
+                    nameof(CreateUserRequest.EmailAddress),
+                    "Invalid email address"
+                    );
+
+                Add(
+                    new CreateUserRequest
+                    {
+                        EmailAddress = "test"
+                    },
+                    false,
+                    nameof(CreateUserRequest.EmailAddress),
+                    "Invalid email address"
+                    );
+
+                Add(
+                    new CreateUserRequest
+                    {
+                        EmailAddress = "test@test.com",
+                        FirstName = string.Empty
+                    },
+                    false,
+                    nameof(CreateUserRequest.FirstName),
+                    "Invalid first name"
+                    );
+
+                Add(
+                    new CreateUserRequest
+                    {
+                        EmailAddress = "test@test.com",
+                        FirstName = "testFirstName",
+                        LastName = string.Empty
+                    },
+                    false,
+                    nameof(CreateUserRequest.LastName),
+                    "Invalid last name"
+                    );
             }
         }
     }
