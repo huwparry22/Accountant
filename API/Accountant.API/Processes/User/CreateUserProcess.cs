@@ -1,12 +1,8 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.User;
+using Accountant.Core.Interfaces;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accountant.API.Processes.User
 {
@@ -14,11 +10,13 @@ namespace Accountant.API.Processes.User
     {
         private readonly IValidator<CreateUserRequest> _createUserRequestValidator;
         private readonly IValidationResultMapper _validationResultMapper;
+        private readonly IUserLogic _userLogic;
 
-        public CreateUserProcess(IValidator<CreateUserRequest> createUserRequestValidator, IValidationResultMapper validationResultMapper)
+        public CreateUserProcess(IValidator<CreateUserRequest> createUserRequestValidator, IValidationResultMapper validationResultMapper, IUserLogic userLogic)
         {
             _createUserRequestValidator = createUserRequestValidator;
             _validationResultMapper = validationResultMapper;
+            _userLogic = userLogic;
         }
 
         public async Task<CreateUserResponse> Validate(CreateUserRequest request)
@@ -28,9 +26,15 @@ namespace Accountant.API.Processes.User
             return _validationResultMapper.MapToApiResponse<CreateUserResponse>(validationResult);
         }
 
-        public Task<CreateUserResponse> Execute(CreateUserRequest request)
+        public async Task<CreateUserResponse> Execute(CreateUserRequest request)
         {
-            throw new NotImplementedException();
+            await _userLogic.SaveUser(request).ConfigureAwait(false);
+
+            return new CreateUserResponse
+            {
+                Success = true
+                //User = model
+            };
         }
     }
 }
