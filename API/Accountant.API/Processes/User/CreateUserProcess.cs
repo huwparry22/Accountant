@@ -1,6 +1,7 @@
 ﻿using Accountant.API.Interfaces;
 using Accountant.API.Models.Requests.User;
 using Accountant.API.Models.Responses.User;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,20 @@ namespace Accountant.API.Processes.User
 {
     public class CreateUserProcess : IApiProcess<CreateUserRequest, CreateUserResponse>
     {
-        public Task<CreateUserResponse> Validate(CreateUserRequest request)
+        private readonly IValidator<CreateUserRequest> _createUserRequestValidator;
+        private readonly IValidationResultMapper _validationResultMapper;
+
+        public CreateUserProcess(IValidator<CreateUserRequest> createUserRequestValidator, IValidationResultMapper validationResultMapper)
         {
-            throw new NotImplementedException();
+            _createUserRequestValidator = createUserRequestValidator;
+            _validationResultMapper = validationResultMapper;
+        }
+
+        public async Task<CreateUserResponse> Validate(CreateUserRequest request)
+        {
+            var validationResult = await _createUserRequestValidator.ValidateAsync(request).ConfigureAwait(false);
+
+            return _validationResultMapper.MapToApiResponse<CreateUserResponse>(validationResult);
         }
 
         public Task<CreateUserResponse> Execute(CreateUserRequest request)
