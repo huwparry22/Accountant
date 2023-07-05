@@ -28,12 +28,12 @@ namespace Accountant.API.Processes.User
 
         public async Task<CreateUserResponse> Execute(CreateUserRequest request)
         {
-            await _userLogic.SaveUser(request).ConfigureAwait(false);
+            var userModel = await _userLogic.SaveUser(request).ConfigureAwait(false);
 
             return new CreateUserResponse
             {
-                Success = true
-                //User = model
+                Success = true,
+                User = userModel
             };
         }
     }
