@@ -6,6 +6,6 @@ namespace Accountant.Core.Interfaces
     {
         Task<API.Models.User> GetUserByEmailAddress(string emailAddress);
 
-        Task<Data.Entities.User> SaveUser(CreateUserRequest createUserRequest);
+        Task<API.Models.User> SaveUser(CreateUserRequest createUserRequest);
     }
 }

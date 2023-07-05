@@ -78,12 +78,14 @@ namespace Accountant.Core.UnitTests.Logic
 
             private readonly Data.Entities.User _userEntity;
             private readonly Data.Entities.User _saveUserEntity;
+            private readonly API.Models.User _userModel;
 
             public SaveUserTests() : base()
             {
                 _createUserRequest = new CreateUserRequest();
                 _userEntity = new Data.Entities.User();
                 _saveUserEntity = new Data.Entities.User();
+                _userModel = new API.Models.User();
 
                 _mockUserMapper
                     .Setup(x => x.MapToEntityUser(It.IsAny<CreateUserRequest>()))
@@ -92,6 +94,10 @@ namespace Accountant.Core.UnitTests.Logic
                 _mockUserProvider
                     .Setup(x => x.SaveAsync(It.IsAny<Data.Entities.User>()))
                     .ReturnsAsync(_saveUserEntity);
+
+                _mockUserMapper
+                    .Setup(x => x.MapToModelUser(It.IsAny<Data.Entities.User>()))
+                    .Returns(_userModel);
             }
 
             [Fact]
@@ -111,11 +117,19 @@ namespace Accountant.Core.UnitTests.Logic
             }
 
             [Fact]
-            public async Task ReturnsSavedUserEntity()
+            public async Task CallsUserMapperMapToModelUser()
+            {
+                await _objectToTest.SaveUser(_createUserRequest).ConfigureAwait(false);
+
+                _mockUserMapper.Verify(x => x.MapToModelUser(_saveUserEntity), Times.Once());
+            }
+
+            [Fact]
+            public async Task ReturnsUserModel()
             {
                 var actual = await _objectToTest.SaveUser(_createUserRequest).ConfigureAwait(false);
 
-                actual.Should().Be(_saveUserEntity);
+                actual.Should().Be(_userModel);
             }
         }
     }

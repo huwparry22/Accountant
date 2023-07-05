@@ -22,11 +22,13 @@ namespace Accountant.Core.Logic
             return _userMapper.MapToModelUser(user);
         }
 
-        public async Task<Data.Entities.User> SaveUser(CreateUserRequest createUserRequest)
+        public async Task<API.Models.User> SaveUser(CreateUserRequest createUserRequest)
         {
             var user = _userMapper.MapToEntityUser(createUserRequest);
 
-            return await _userProvider.SaveAsync(user).ConfigureAwait(false);
+            var userEntity = await _userProvider.SaveAsync(user).ConfigureAwait(false);
+
+            return _userMapper.MapToModelUser(userEntity);
         }
     }
 }
