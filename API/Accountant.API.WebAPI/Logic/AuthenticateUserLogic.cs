@@ -15,24 +15,44 @@ namespace Accountant.API.WebAPI.Logic
             _apiProcessLogic = apiProcessLogic;
         }
 
-        public async Task<User> GetAuthenticatedUser(ClaimsPrincipal user)
+        public async Task<(BaseResponse Response, User? User)> GetAuthenticatedUser(ClaimsPrincipal user)
+        {
+            var getUserResponse = await GetUser(user).ConfigureAwait(false);
+
+            if (!getUserResponse.Success)
+            {
+                return (getUserResponse, default);
+            }
+
+            if (getUserResponse.Success && getUserResponse.User != null)
+            {
+                return (getUserResponse, getUserResponse.User);
+            }
+            
+            var createUserResponse = await CreateUser(user).ConfigureAwait(false);
+
+            return (createUserResponse, createUserResponse.User);
+        }
+
+        private async Task<GetUserResponse> GetUser(ClaimsPrincipal user)
         {
             var getUserRequest = new GetUserRequest
             {
                 EmailAddress = user.FindFirstValue("Emails")
             };
 
-            var getUserResponse = await _apiProcessLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
+            return await _apiProcessLogic.RunApiProcess<GetUserRequest, GetUserResponse>(getUserRequest).ConfigureAwait(false);
+        }
 
-            if (getUserResponse.User != null)
+        private async Task<CreateUserResponse> CreateUser(ClaimsPrincipal user)
+        {
+            var createUserRequest = new CreateUserRequest
             {
-                return getUserResponse.User;
-            }
-            else
-            {
-                //Create User
-                return null;
-            }
+                EmailAddress = user.FindFirstValue("Emails")
+                //ToDo
+            };
+
+            return await _apiProcessLogic.RunApiProcess<CreateUserRequest, CreateUserResponse>(createUserRequest).ConfigureAwait(false);
         }
     }
 }

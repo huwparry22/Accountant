@@ -1,7 +1,6 @@
 ﻿using Accountant.API.Models;
 using Accountant.API.WebAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Accountant.API.WebAPI.Logic
 {
@@ -16,11 +15,18 @@ namespace Accountant.API.WebAPI.Logic
             _apiProcessLogic = apiLogicAggregator.ApiProcessLogic;
         }
 
-        public async Task<TResponse> RunApiProcess<TRequest, TResponse>(TRequest request)
+        public async Task<ActionResult<TResponse>> RunApiProcess<TRequest, TResponse>(TRequest request)
             where TRequest : BaseRequest
             where TResponse : BaseResponse
         {
-            request.AuthenticatedUser = await _authenticateUserLogic.GetAuthenticatedUser(User).ConfigureAwait(false);
+            var authResponse = await _authenticateUserLogic.GetAuthenticatedUser(User).ConfigureAwait(false);
+            
+            if (!authResponse.Response.Success)
+            {
+                return Unauthorized(authResponse.Response.Errors);
+            }
+
+            request.AuthenticatedUser = authResponse.User;
 
             return await _apiProcessLogic.RunApiProcess<TRequest, TResponse>(request).ConfigureAwait(false);
         }

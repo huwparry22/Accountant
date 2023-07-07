@@ -1,7 +1,9 @@
-﻿namespace Accountant.API.Models.Responses.User
+﻿using Accountant.API.Models.Interfaces;
+
+namespace Accountant.API.Models.Responses.User
 {
-    public class GetUserResponse : BaseResponse
+    public class GetUserResponse : BaseResponse, IUser
     {
-        public API.Models.User? User { get; set; }
+        public API.Models.User User { get; set; }
     }
 }
