@@ -7,7 +7,7 @@
 	"item": [
 		{
 			"name": "CreateLineItem",
-			"_postman_id": "48e2be13-c4f3-483f-ba76-a9d24ae3cc9a",
+			"id": "48e2be13-c4f3-483f-ba76-a9d24ae3cc9a",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -66,7 +66,7 @@
 	],
 	"variable": [
 		{
-			"id": "e0744efa-a1e2-4745-91e6-5bb4d17e9d95",
+			"id": "c0f0e847-8f09-4bb4-8e68-8664118ae913",
 			"key": "apiUrl",
 			"value": "https://localhost:7012/",
 			"type": "string"
