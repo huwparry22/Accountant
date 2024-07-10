@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      solution: API/Accountant.sln
+      solution: Accountant.sln
       # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
       # SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
